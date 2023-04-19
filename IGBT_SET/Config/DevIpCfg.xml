@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--软件基础配置-->
+<DevAdress>
+	<!--PLC设备-->
+	<WL7016 IP="192.168.1.100" Port ="1000"/>
+	<!-- 高压电源 走SCPI协议-->
+	<DC_High IP="192.168.1.202" Port ="50505"/>
+	<!-- 删极电源 走SCPI协议-->
+	<DC_Low IP="192.168.1.200" Port ="30000"/>
+	<!--示波器-->
+	<Oscilloscope  IP="192.168.1.201"  Port ="3389"/>
+</DevAdress>
