@@ -162,7 +162,7 @@ namespace IGBT_SET
                 //自动模式设置
                 if (MainWindowModel.dataCfg != null)
                 {
-                    MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
+                    MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.SysMangerCard, (byte)FuncCode.ParamerSet, data, (byte)CardType.PLCCard);
                 }
             }
             catch (Exception ex)

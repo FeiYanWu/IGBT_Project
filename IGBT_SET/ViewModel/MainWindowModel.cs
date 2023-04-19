@@ -615,7 +615,6 @@ namespace IGBT_SET.ViewModel
         }
         #endregion
 
-
         private static MainWindowModel windowModel;
 
         public static DevCollocation devCollocation;
@@ -628,13 +627,7 @@ namespace IGBT_SET.ViewModel
             {
                 if (devCollocation == null)
                     devCollocation = new DevCollocation();
-#if false
-                if (dataCfg == null)
-                    dataCfg = new DataCfg("192.168.1.215", 1024);
-#endif
 
-
-#if true
                 if (dataCfg == null)
                     dataCfg = new DataCfg();
 
@@ -653,7 +646,7 @@ namespace IGBT_SET.ViewModel
                 BackgroundWorker SignalGet= new BackgroundWorker();
                 SignalGet.DoWork += PlcDatagRead;
                 SignalGet.RunWorkerAsync();
-#endif
+
                 windowModel = this;
             }
         }
@@ -683,14 +676,11 @@ namespace IGBT_SET.ViewModel
             return windowModel;
         }
 
-        /// <summary>
-        /// Plc参获取
-        /// </summary>
-        public void PlcParameterGet( ushort register)
+        #region PLC数据显示
+        public void PlcParameterGet(ushort register)
         {
             try
             {
-                //旋转复位
                 byte[] data = new byte[10];
                 data[0] = (byte)(register & 0xFF);
                 data[1] = (byte)((register >> 8)&0xFF);
@@ -701,55 +691,99 @@ namespace IGBT_SET.ViewModel
                 MessageBox.Show("服务器异常 :"+ ex.Message);
             }
         }
+        public void PlcParameterGet(ushort register,byte data)
+        {
+            try
+            {
+                byte[] datas = new byte[10];
+                datas[0] = (byte)(register & 0xFF);
+
+                datas[2] = data;
+                dataCfg.SendProtocolDataCFG((byte)CardType.SysMangerCard, (byte)FuncCode.ParamerGet, datas, (byte)CardType.PLCCard);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("服务器异常 :" + ex.Message);
+            }
+        }
         private void PlcDatagRead(object sender, DoWorkEventArgs e)
         {
-            //托盘到位信号
-            PlcParameterGet(0x03);
+            ////托盘到位信号
+            //PlcParameterGet(0x03);
+            //Thread.Sleep(100);
+            //byte[] data = dataCfg.protocolDataTransceiver.GetCurrentProtocolData()?.Data;
 
-            //ushort register = 3;
-            //while (!cts.IsCancellationRequested)
-            //{
-            //    Thread.Sleep(100);
-            //    try
-            //    {
-            //        PlcParameterGet(register);
 
-            //        Thread.Sleep(500);
-            //        register += 2;
-            //        PlcParameterGet(register);
 
-            //        Thread.Sleep(500);
-            //        register += 2;
-            //        PlcParameterGet(register);
+            ////产品到位信号
+            //PlcParameterGet(0x05);
+            ////收到回复
 
-            //        Thread.Sleep(500);
-            //        register += 2;
-            //        PlcParameterGet(register);
-
-            //        Thread.Sleep(500);
-            //        register += 2;
-            //        PlcParameterGet(register);
-            //        Thread.Sleep(1000);
-            //        register = 3;
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("PLC 服务器数据获取异常！ info:" + ex.Message);
-            //    }
-            //}
+            ////针床到位信号
+            //PlcParameterGet(0x07);
+            ////收到回复
         }
-
-        //当前托盘配置转动方向
         public byte TrayTurnDirection = 0;
-        /// <summary>
-        /// PLC数据读取
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void PlcDatagGet(object sender, DoWorkEventArgs e)
         {
-            byte[] data;
-            ushort register = 0;
+
+            // TODO 托盘到位信号 后续处理
+            PlcParameterGet(0x03);
+            Thread.Sleep(100);
+            byte[] datas = dataCfg.protocolDataTransceiver.GetCurrentProtocolData()?.Data;
+            
+            #region 产品到位信号
+            PlcParameterGet(0x05);
+            Thread.Sleep(100);
+            byte[] datas2 = dataCfg.protocolDataTransceiver.GetCurrentProtocolData()?.Data;
+            if (datas2?[9] == 1) //产品上升到位
+            {
+                ProductUpedSignal = true;
+                ProductDownedSignal = false;
+            }
+            else
+            {
+                ProductUpedSignal = false;
+                ProductDownedSignal = true;
+            }
+            #endregion
+
+            #region 针床到位信号
+            PlcParameterGet(0x07);
+            Thread.Sleep(100);
+            byte[] datas3 = dataCfg.protocolDataTransceiver.GetCurrentProtocolData()?.Data;
+            if (datas3?[9] == 1) //针床到位
+            {
+                NeedleUpedSignal = true;
+                NeedleDownedSignal = false;
+            }
+            else
+            {
+                NeedleUpedSignal = false;
+                NeedleDownedSignal = true;
+            }
+            #endregion
+
+            #region 工装1温度
+            PlcParameterGet(0x09,1);
+            byte[] datas4 = dataCfg.protocolDataTransceiver.GetCurrentProtocolData()?.Data;
+            if (datas4?[9] == 1) //工装1温度
+            {
+                OperationTemperature_1 = datas4[10] + datas4[11] * 0x100 + datas4[12] * 0x10000 + datas4[13] * 0x1000000;
+            }
+            
+            #endregion
+
+            #region 工装2温度
+            PlcParameterGet(0x09, 2);
+            byte[] datas5 = dataCfg.protocolDataTransceiver.GetCurrentProtocolData()?.Data;
+            if (datas5?[9] == 1) //工装1温度
+            {
+                OperationTemperature_2 = datas5[10] + datas5[11] * 0x100 + datas5[12] * 0x10000 + datas5[13] * 0x1000000;
+            }
+            #endregion
+
+            #region 废弃
             //while (!cts.IsCancellationRequested)
             //{
             //    Thread.Sleep(100);
@@ -830,12 +864,11 @@ namespace IGBT_SET.ViewModel
             //        MessageBox.Show("PLC 服务器数据获取异常！ info:" + ex.Message);
             //    }
             //}
+            #endregion
         }
-        /// <summary>
-        /// 高压电源数据获取
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        #endregion
+
+        #region 高压电源值显示
         public void HighValueGet(object sender, DoWorkEventArgs e)
         {
             bool remote = false;
@@ -880,16 +913,12 @@ namespace IGBT_SET.ViewModel
                 }
             }
         }
+        #endregion
 
+        #region 低压电源值显示
         public volatile bool IsDCGetValue = true;
-        
-        /// <summary>
-        /// 低压电源数据获取
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void LowValueGet(object sender, DoWorkEventArgs e)
-        { 
+        {
             bool remote = false;
             while (!cts.IsCancellationRequested)
             {
@@ -917,61 +946,9 @@ namespace IGBT_SET.ViewModel
                 }
                 //IsDCGetValue = false;
             }
-
-            //bool remote = false;
-            //while (!cts.IsCancellationRequested)
-            //{
-            //    Thread.Sleep(1000);
-            //    try
-            //    {
-            //        lock (dataCfg.tcpDC_Low)
-            //        {
-            //            if (!remote)
-            //            {
-            //                //设置远程模式
-            //                dataCfg.tcpDC_Low.WriteLine("SYST:REM");
-            //                remote = true;
-            //            }
-            //            dataCfg.tcpDC_Low.WriteLine("CHANnel 1");
-            //            dataCfg.tcpDC_Low.WriteLine("MEAS:VOLT?");
-            //            Thread.Sleep(2000);
-            //            dataCfg.tcpDC_Low.ReadText(8, false);
-            //            dataCfg.tcpDC_Low.WriteLine("MEAS:VOLT?");
-            //            Thread.Sleep(2000);
-            //            CurPositiveVolt = dataCfg.tcpDC_Low.ReadText(8, false);
-            //            dataCfg.tcpDC_Low.WriteLine("OUTP?");
-            //            Thread.Sleep(2000);
-            //            //当前通道信息
-            //            ChannelStatus_1 = int.Parse(dataCfg.tcpDC_Low.ReadLine().Trim()) > 0 ? true : false;
-            //        }
-            //        lock (dataCfg.tcpDC_Low_Ch2)
-            //        {
-            //            ////通道2
-            //            dataCfg.tcpDC_Low_Ch2.WriteLine("CHANnel 2");
-            //            dataCfg.tcpDC_Low_Ch2.WriteLine("MEAS:VOLT?");
-            //            Thread.Sleep(1000);
-            //            dataCfg.tcpDC_Low_Ch2.ReadText(8, false);
-            //            dataCfg.tcpDC_Low_Ch2.WriteLine("MEAS:VOLT?");
-            //            Thread.Sleep(1000);
-            //            //读取 当前正压
-            //            CurNegativeVolt = dataCfg.tcpDC_Low_Ch2.ReadText(8, false);
-            //            dataCfg.tcpDC_Low_Ch2.WriteLine("OUTP?");
-            //            Thread.Sleep(1000);
-            //            //当前通道信息
-            //            ChannelStatus_2 = int.Parse(dataCfg.tcpDC_Low_Ch2.ReadLine().Trim()) > 0 ? true : false;
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("获取当前栅极数据 错误 ！" + ex);
-            //    }
-            //}
         }
-        /// <summary>
-        /// 任务下发成功判断
-        /// </summary>
-        /// <param name="register"></param>
-        /// <returns></returns>
+        #endregion
+
         public bool DataSendSuccessJudge(byte register)
         {
             int count = 0;
@@ -1007,12 +984,6 @@ namespace IGBT_SET.ViewModel
             }
             return false;
         }
-        /// <summary>
-        /// 栅极配置成功判断
-        /// </summary>
-        /// <param name="JudgeInfo"></param>
-        /// <param name="channel"></param>
-        /// <returns></returns>
         public bool PulseSendSuccessJudge(byte JudgeInfo, byte channel)
         {
             int count = 0;
@@ -1049,9 +1020,6 @@ namespace IGBT_SET.ViewModel
             }
             return false;
         }
-        /// <summary>
-        /// 开尔文测试
-        /// </summary>
         public bool KelVinTest()
         {
             int count = 0;
@@ -1099,10 +1067,6 @@ namespace IGBT_SET.ViewModel
             }
             return false;
         }
-        /// <summary>
-        /// 关闭上一tab页面的任务
-        /// </summary>
-        /// <returns></returns>
         public bool CloseOldEnable()
         {
             if (EnableTabIndex == 0)

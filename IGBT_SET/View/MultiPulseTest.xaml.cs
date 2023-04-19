@@ -44,6 +44,8 @@ namespace IGBT_SET.View
             }
         }
 
+
+        #region 高压上电按钮
         private void btn_PowerOn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -74,7 +76,9 @@ namespace IGBT_SET.View
             windowModel.ProtectEle = tb_EleProtect.Text;
             windowModel.ProtectVolt = tb_VoltProtect.Text;
         }
-
+        #endregion
+        
+        #region 高压下电按钮
         private void btn_PowerOff_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -94,7 +98,9 @@ namespace IGBT_SET.View
                 MainWindowModel.dataCfg.tcpDC_High.WriteLine("OUTP:STOP");
             }
         }
+        #endregion
 
+        #region 脉冲输出按钮
         private void btn_PulseOutput_Click(object sender, RoutedEventArgs e)
         {
             btn_PulseOutput.IsEnabled = false;
@@ -111,11 +117,9 @@ namespace IGBT_SET.View
             }
             windowModel.PulseSendSuccessJudge(0xFD, (byte)(cbx_select.SelectedIndex + 1));
         }
-        /// <summary>
-        /// 栅极正压输出
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        #endregion  
+
+        #region 栅极正压输出按钮
         private void btn_PVOutput_Click(object sender, RoutedEventArgs e)
         {
             windowModel.GridPositiveVolt_Set = tb_PositiveVolt.Text;
@@ -128,11 +132,9 @@ namespace IGBT_SET.View
 
             windowModel.IsDCGetValue = true;
         }
-        /// <summary>
-        /// 栅极负压输出
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        #endregion
+
+        #region 栅极负压输出按钮
         private void btn_NVOutput_Click(object sender, RoutedEventArgs e)
         {
             windowModel.GridNegativeVolt_Set = tb_NegativeVolt.Text;
@@ -141,11 +143,9 @@ namespace IGBT_SET.View
             MainWindowModel.dataCfg.DcPowerHandle.WriteCommand("OUTP ON");
             Thread.Sleep(100);
         }
-        /// <summary>
-        /// 充电
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        #endregion
+
+        #region 充电按钮
         private void btn_Charge_Click(object sender, RoutedEventArgs e)
         {
             //单双脉冲、短路配置  通道配置
@@ -163,7 +163,9 @@ namespace IGBT_SET.View
             }
             windowModel.PulseSendSuccessJudge(0xFD, (byte)(cbx_select.SelectedIndex + 1));
         }
+        #endregion
 
+        #region 放电按钮
         private void btn_Discharge_Click(object sender, RoutedEventArgs e)
         {
             btn_Discharge.IsEnabled = false;
@@ -182,6 +184,7 @@ namespace IGBT_SET.View
             }
             windowModel.DataSendSuccessJudge(0xC);
         }
+        #endregion
 
         private void DataWidth(object sender, RoutedEventArgs e)
         {
@@ -190,11 +193,8 @@ namespace IGBT_SET.View
                 tb_PulseWidth.Text = (float.Parse(cbx_inductance.SelectionBoxItem.ToString()) * float.Parse(tb_SetEle.Text) / float.Parse(tb_Volt.Text)).ToString();
             }));
         }
-        /// <summary>
-        /// 栅极电阻启用
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
+        #region 栅极电阻启用
         private void ck_ResistanceEnable_Checked(object sender, RoutedEventArgs e)
         {
             ck_ResistanceEnable.IsEnabled = false;
@@ -210,20 +210,19 @@ namespace IGBT_SET.View
             }
             windowModel.PulseSendSuccessJudge(data, (byte)(cbx_select.SelectedIndex+1));
         }
+        
         /// <summary>
-        /// 栅极电阻禁用
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+         /// 栅极电阻禁用
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
         private void ck_ResistanceEnable_Unchecked(object sender, RoutedEventArgs e)
         {
 
         }
-        /// <summary>
-        /// 栅极通道改变
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        #endregion
+
+        #region 选择栅极通道
         private void cbx_select_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cbx_select.IsEnabled = false;
@@ -237,9 +236,10 @@ namespace IGBT_SET.View
                 MessageBox.Show("通道修改失败 ! " + ex.Message);
             }
         }
+        #endregion
 
         #region 使能手动配置
-       
+
         /// <summary>
         /// 栅极通道改变
         /// </summary>
