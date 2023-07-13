@@ -31,7 +31,6 @@ namespace IGBT_SET.View
             {
                 if (windowModel == null)
                     windowModel = MainWindowModel.GetInstance();
-                //this.DataContext = windowModel;
             }
         }
     }

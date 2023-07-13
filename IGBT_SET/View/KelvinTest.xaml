@@ -7,30 +7,30 @@
              mc:Ignorable="d" 
               d:DesignHeight="220" d:DesignWidth="1150">
     <Grid x:Name="Kelvin_view">
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28"  TabIndex="1" Content="IGBT_1_C" HorizontalAlignment="Left" Margin="275,26,0,0"  VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="2" Content="IGBT_2_C" HorizontalAlignment="Left"  Margin="385,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="3" Content="IGBT_3_C" HorizontalAlignment="Left"  Margin="495,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="4" Content="IGBT_4_C" HorizontalAlignment="Left"  Margin="605,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="5" Content="IGBT_5_C" HorizontalAlignment="Left"  Margin="715,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="6" Content="IGBT_6_C" HorizontalAlignment="Left"  Margin="825,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="7" Content="IGBT_7_C" HorizontalAlignment="Left"  Margin="935,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="8" Content="IGBT_8_C" HorizontalAlignment="Left"  Margin="1045,26,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="9" Content="IGBT_1_E" HorizontalAlignment="Left"  Margin="275,76,0,0"  VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="10" Content="IGBT_2_E" HorizontalAlignment="Left" Margin="385,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="11" Content="IGBT_3_E" HorizontalAlignment="Left" Margin="495,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="12" Content="IGBT_4_E" HorizontalAlignment="Left" Margin="605,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="13" Content="IGBT_5_E" HorizontalAlignment="Left" Margin="715,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="14" Content="IGBT_6_E" HorizontalAlignment="Left" Margin="825,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="15" Content="IGBT_7_E" HorizontalAlignment="Left" Margin="935,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="16" Content="IGBT_8_E" HorizontalAlignment="Left" Margin="1045,76,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="17" Content="IGBT_1_G" HorizontalAlignment="Left" Margin="275,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="18" Content="IGBT_2_G" HorizontalAlignment="Left" Margin="385,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="19" Content="IGBT_3_G" HorizontalAlignment="Left" Margin="495,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="20" Content="IGBT_4_G" HorizontalAlignment="Left" Margin="605,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="21" Content="IGBT_5_G" HorizontalAlignment="Left" Margin="715,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="22" Content="IGBT_6_G" HorizontalAlignment="Left" Margin="825,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="23" Content="IGBT_7_G" HorizontalAlignment="Left" Margin="935,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
-        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="24" Content="IGBT_8_G" HorizontalAlignment="Left" Margin="1045,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28"  TabIndex="1" Content="IGBT_1_C" HorizontalAlignment="Left" Margin="275,26,0,0"  VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="2" Content="IGBT_2_C" HorizontalAlignment="Left"  Margin="385,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="3" Content="IGBT_3_C" HorizontalAlignment="Left"  Margin="495,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="4" Content="IGBT_4_C" HorizontalAlignment="Left"  Margin="605,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="5" Content="IGBT_5_C" HorizontalAlignment="Left"  Margin="715,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="6" Content="IGBT_6_C" HorizontalAlignment="Left"  Margin="825,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="7" Content="IGBT_7_C" HorizontalAlignment="Left"  Margin="935,26,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="8" Content="IGBT_8_C" HorizontalAlignment="Left"  Margin="1045,26,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="9" Content="IGBT_1_E" HorizontalAlignment="Left"  Margin="275,76,0,0"  VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="10" Content="IGBT_2_E" HorizontalAlignment="Left" Margin="385,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="11" Content="IGBT_3_E" HorizontalAlignment="Left" Margin="495,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="12" Content="IGBT_4_E" HorizontalAlignment="Left" Margin="605,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="13" Content="IGBT_5_E" HorizontalAlignment="Left" Margin="715,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="14" Content="IGBT_6_E" HorizontalAlignment="Left" Margin="825,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="15" Content="IGBT_7_E" HorizontalAlignment="Left" Margin="935,76,0,0" VerticalAlignment="Top"  Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="16" Content="IGBT_8_E" HorizontalAlignment="Left" Margin="1045,76,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="17" Content="IGBT_1_G" HorizontalAlignment="Left" Margin="275,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="18" Content="IGBT_2_G" HorizontalAlignment="Left" Margin="385,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="19" Content="IGBT_3_G" HorizontalAlignment="Left" Margin="495,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="20" Content="IGBT_4_G" HorizontalAlignment="Left" Margin="605,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="21" Content="IGBT_5_G" HorizontalAlignment="Left" Margin="715,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="22" Content="IGBT_6_G" HorizontalAlignment="Left" Margin="825,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="23" Content="IGBT_7_G" HorizontalAlignment="Left" Margin="935,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
+        <CheckBox  Style="{StaticResource CheckBoxStyle}"  Height="28" TabIndex="24" Content="IGBT_8_G" HorizontalAlignment="Left" Margin="1045,126,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_UnChecked"/>
         <Button Style="{StaticResource ButtonStyle}" x:Name="btn_all" Content="全选" HorizontalAlignment="Left" Margin="296,177,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="btn_all_Click" />
         <Button Style="{StaticResource ButtonStyle}" x:Name="btn_clr" Content="全不选" HorizontalAlignment="Left" Margin="416,177,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="btn_clr_Click"/>
         <Button Style="{StaticResource ButtonStyle}" x:Name="btn_inverse" Content="反选" HorizontalAlignment="Left" Margin="536,177,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="btn_inverse_Click" />
@@ -51,7 +51,7 @@
         </Ellipse>
         <Button Style="{StaticResource ButtonStyle}" x:Name="btn_CfgGet" Content="策略获取" HorizontalAlignment="Left" Margin="656,177,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="btn_CfgGet_Click" />
         <Button Style="{StaticResource ButtonStyle}" x:Name="btn_CfgSet" Content="策略下发" HorizontalAlignment="Left" Margin="776,177,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="btn_CfgSet_Click" />
-        <TextBox x:Name="tb_TestResult" Margin="10,30,0,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Left" Width="223" Height="180" VerticalAlignment="Top"/>
+        <TextBox  x:Name="tb_TestResult" Margin="10,30,0,0" TextWrapping="Wrap" Text="{Binding KelvinTestString}" HorizontalAlignment="Left" Width="223" Height="180" VerticalAlignment="Top" />
         <Label Content="错误信息：" HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

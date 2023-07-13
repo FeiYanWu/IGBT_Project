@@ -1,21 +1,8 @@
 ﻿using IGBT_SET.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Wolei_485Trans;
 
 namespace IGBT_SET.View
 {
@@ -35,115 +22,136 @@ namespace IGBT_SET.View
             {
                 if (WindowModel == null)
                     WindowModel = MainWindowModel.GetInstance();
-                //this.DataContext = WindowModel;
-            }
 
-            //BackgroundWorker SignalJudge = new BackgroundWorker();
-            //SignalJudge.DoWork += PlcSignalJudge;
-            //SignalJudge.RunWorkerAsync();
+                if (MainWindowModel.devManager.siemensS1200Helper.ReadBoolData("DB5.1.0"))
+                {
+                    btn_tempterature_Open.IsEnabled = false;
+                    btn_tempterature_Close.IsEnabled = true;
+                }
+                else
+                {
+                    btn_tempterature_Open.IsEnabled = true;
+                    btn_tempterature_Close.IsEnabled = false;
+                }
+            }
         }
 
 
         #region 正反转重置
         /// <summary>
-        /// 正转
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_foreward_Click(object sender, RoutedEventArgs e)
-        {
-            btn_foreward.IsEnabled = false;
-            if (WindowModel.FWDArrivedSignal1)
-            {
-                btn_foreward.IsEnabled = true;
-                MessageBox.Show("当前位置无法正转");
-                return;
-            }
-            try
-            {
-                byte[] data = new byte[10];
-                data[0] = 2;
-                data[2] = 1;
-
-                //正转180
-                MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
-               
-            }
-            catch (Exception ex)
-            {
-                btn_foreward.IsEnabled = true;
-                MessageBox.Show(ex.Message);
-            }
-            if(WindowModel.DataSendSuccessJudge(2))
-            {
-                WindowModel.FWDArrivedSignal1 = false;
-                WindowModel.FWDArrivedSignal2 = false;
-                WindowModel.FWDArrivedSignal3 = false;
-                WindowModel.TrayTurnDirection = 1;
-                btn_foreward.IsEnabled = true;
-            }
-        }
-        /// <summary>
-        /// 反转
+        /// 反转180°
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_reversal_Click(object sender, RoutedEventArgs e)
         {
             btn_reversal.IsEnabled = false;
-            if (WindowModel.FWDArrivedSignal2)
-            {
-                btn_reversal.IsEnabled = true;
-                MessageBox.Show("当前位置无法反转");
-                return;
-            }
             try
             {
-                byte[] data = new byte[10];
-                data[0] = 2;
-                data[2] = 2;
-                //反转180
-                ViewModel.MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
+                if (WindowModel.ProductUpedSignal)
+                {
+                    MessageBox.Show("请先将产品降下去");
+                    return;
+                }
+
+                if (WindowModel.NeedleDownedSignal)
+                {
+                    MessageBox.Show("请先将针床升上去");
+                    return;
+                }
+
+                //马达使能
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.1.7", true);
+
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.2.2", true);
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.2.1", true);
+
             }
             catch (Exception ex)
             {
                 btn_reversal.IsEnabled = true;
                 MessageBox.Show(ex.Message);
             }
-            if (WindowModel.DataSendSuccessJudge(2))
+            finally
             {
-                WindowModel.FWDArrivedSignal1 = false;
-                WindowModel.FWDArrivedSignal2 = false;
-                WindowModel.FWDArrivedSignal3 = false;
-                WindowModel.TrayTurnDirection = 2;
                 btn_reversal.IsEnabled = true;
+            }
+            
+
+        }
+        /// <summary>
+        /// 正转到0°
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_foreward_Click(object sender, RoutedEventArgs e)
+        {
+            btn_foreward.IsEnabled = false;
+            try
+            {
+                if (WindowModel.ProductUpedSignal)
+                {
+                    MessageBox.Show("请先将产品降下去");
+                    return;
+                }
+
+                if (WindowModel.NeedleDownedSignal)
+                {
+                    MessageBox.Show("请先将针床升上去");
+                    return;
+                }
+                //马达使能
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.1.7", true);
+
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.2.2", true);
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.1.4", true);
+
+            }
+            catch (Exception ex)
+            {
+                btn_foreward.IsEnabled = true;
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                btn_foreward.IsEnabled = true;
             }
         }
         /// <summary>
-        /// 重置
+        /// 回原点
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_reset_Click(object sender, RoutedEventArgs e)
         {
+            btn_reset.IsEnabled = false;
             try
             {
-                //旋转复位
-                byte[] data = new byte[10];
-                data[0] = 2;
-                data[2] = 3;
-                ViewModel.MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
+                if (WindowModel.ProductUpedSignal)
+                {
+                    MessageBox.Show("请先将产品降下去");
+                    return;
+                }
+
+                if (WindowModel.NeedleDownedSignal)
+                {
+                    MessageBox.Show("请先将针床升上去");
+                    return;
+                }
+                //马达使能
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.1.7", true);
+
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.2.2", true);
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.1.1", true);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("服务器异常");
+                btn_reset.IsEnabled = true;
+                MessageBox.Show(ex.Message);
             }
-            if (WindowModel.DataSendSuccessJudge(2))
+            finally
             {
-                WindowModel.FWDArrivedSignal1 = false;
-                WindowModel.FWDArrivedSignal2 = false;
-                WindowModel.FWDArrivedSignal3 = false;
-                WindowModel.TrayTurnDirection = 3;
+                btn_reset.IsEnabled = true;
             }
         }
 
@@ -160,33 +168,38 @@ namespace IGBT_SET.View
             btn_Product.IsEnabled = false;
             try
             {
-                byte[] data = new byte[10];
-                data[0] = 4;
-
-                if (WindowModel.NeedleUpedSignal)
+                if (!WindowModel.ProductUpedSignal)
                 {
-                    data[2] = 1;   //配置托盘上升
+                    if (WindowModel.NeedleDownedSignal)
+                    {
+                        MessageBox.Show("请先将针床升起");
+                        return;
+                    }
+
+                    //产品上升
+                    MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.2.6", true);
+                    WindowModel.ProductDownedSignal = false;
                 }
                 else
                 {
-                    data[2] = 2;
+                    //产品下降
+                    MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.2.5", true);
+                    WindowModel.ProductDownedSignal = true;
                 }
-                //反转180
-                MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
-                WindowModel.ProductDownedSignal = false;
-                WindowModel.ProductUpedSignal = false;
             }
             catch (Exception ex)
             {
                 btn_Product.IsEnabled = true;
                 MessageBox.Show(ex.Message);
             }
-            if (WindowModel.DataSendSuccessJudge(4))
+            finally
             {
                 btn_Product.IsEnabled = true;
             }
+
+
         }
-#endregion
+        #endregion
 
         #region 针床上升下降
         /// <summary>
@@ -199,105 +212,87 @@ namespace IGBT_SET.View
             btn_Needle.IsEnabled = false;
             try
             {
-                byte[] data = new byte[10];
-                data[0] = 6;
-
-                if (WindowModel.ProductDownedSignal)
+                if (WindowModel.NeedleUpedSignal)
                 {
-                    data[2] = 2;   //配置针床下降
+                    if (WindowModel.ProductUpedSignal)
+                    {
+                        MessageBox.Show("请先将产品降下去");
+                        return;
+                    }
+                    MainWindowModel.devManager.wL751301Helper.NeedleBedOperation(1);   //配置针床下降
+                    WindowModel.NeedleUpedSignal = false;
                 }
                 else
                 {
-                    data[2] = 1;
+                    MainWindowModel.devManager.wL751301Helper.NeedleBedOperation(0);
+                    WindowModel.NeedleDownedSignal = false;
                 }
-                //反转180
-                MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
-                WindowModel.NeedleDownedSignal = false;
-                WindowModel.NeedleUpedSignal = false;
             }
             catch (Exception ex)
             {
                 btn_Needle.IsEnabled = true;
                 MessageBox.Show(ex.Message);
             }
-            if(WindowModel.DataSendSuccessJudge(6))
+            finally
             {
                 btn_Needle.IsEnabled = true;
             }
         }
-#endregion
+        #endregion
 
-#region　温度设定
+        #region　温度设定
 
-        /// <summary>
-        /// 温度设定
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_tempterature_Click(object sender, RoutedEventArgs e)
-        {
-            //获取界面数据
-            int data = int.Parse(tb_SetTemp.Text);
-            //将数据转换为byte[]
-            byte[] senddata = BitConverter.GetBytes(data);
-            //将数据转换为小端模式
-            senddata = senddata.Reverse().ToArray();
-            //数据发送
-            ViewModel.MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, senddata);
-
-            WindowModel.DataSendSuccessJudge(0);
-
-        }
+            /// <summary>
+            /// 温度设定
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            private void btn_tempterature_Click(object sender, RoutedEventArgs e)
+            {
+                //获取界面数据
+                float data = float.Parse(tb_SetTemp.Text);
+                MainWindowModel.devManager.siemensS1200Helper.WriteFloat("DB5.24.0", data);
+            }
         /// <summary>
         /// 温度开
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_tempterature_Open_Click(object sender, RoutedEventArgs e)
-        {
-            btn_tempterature_Open.IsEnabled = false;
-            try
             {
-                byte[] data = new byte[10];
-                data[0] = 0xD;
-                data[2] = 1;   
-                ViewModel.MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
+                btn_tempterature_Open.IsEnabled = false;
+                try
+                {
+              
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.1.0",true);
             }
             catch (Exception ex)
-            {
-                btn_tempterature_Open.IsEnabled = true;
-                MessageBox.Show(ex.Message);
-            }
-            if (WindowModel.DataSendSuccessJudge(0xD))
-            {
-                btn_tempterature_Open.IsEnabled = true;
-            }
+                {
+                    btn_tempterature_Open.IsEnabled = true;
+                    MessageBox.Show(ex.Message);
+                }
+            btn_tempterature_Close.IsEnabled = true;
         }
-        /// <summary>
-        /// 温度关
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_tempterature_Close_Click(object sender, RoutedEventArgs e)
-        {
-            btn_tempterature_Close.IsEnabled = false;
-            try
+            /// <summary>
+            /// 温度关
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            private void btn_tempterature_Close_Click(object sender, RoutedEventArgs e)
             {
-                byte[] data = new byte[10];
-                data[0] = 0xD;
-                data[2] = 2;  
-                ViewModel.MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
+                btn_tempterature_Close.IsEnabled = false;
+                try
+                {
+
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.1.0", false);
             }
-            catch (Exception ex)
-            {
-                btn_tempterature_Close.IsEnabled = true;
-                MessageBox.Show(ex.Message);
-            }
-            if (WindowModel.DataSendSuccessJudge(0xD))
-            {
-                btn_tempterature_Close.IsEnabled = true;
-            }
+                catch (Exception ex)
+                {
+                    btn_tempterature_Close.IsEnabled = true;
+                    MessageBox.Show(ex.Message);
+                }
+            btn_tempterature_Open.IsEnabled = true;
         }
-#endregion
+    #endregion
     }
 }

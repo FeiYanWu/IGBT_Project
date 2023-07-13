@@ -1,11 +1,13 @@
 ﻿using IGBT_SET.Common;
 using IGBT_SET.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media;
-using Wolei_485Trans;
+using static IGBT_V2Helper.IGBStructs;
 
 namespace IGBT_SET
 {
@@ -15,11 +17,14 @@ namespace IGBT_SET
     public partial class MainWindow :Window
     {
         private MainWindowModel mainWindowModel;
-        public MainWindow()
+
+        public string ProductModel;
+        public MainWindow(string productModel)
         {
             InitializeComponent();
             mainWindowModel = MainWindowModel.GetInstance();
             this.DataContext = mainWindowModel;
+            ProductModel = productModel;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -34,7 +39,44 @@ namespace IGBT_SET
             this.Height = SystemParameters.PrimaryScreenHeight;
             DeskTopInit();
             SetHandModel();
+            SetSystemInfo();
         }
+
+        private void SetSystemInfo()
+        {
+            List<Product> p2list = XMLHelper.LoadXmlFromFile<List<Product>>("product.xml");
+
+            Product product = p2list.FirstOrDefault(item=>ProductModel.Equals(item.Model));
+
+            if(product != null)
+            {
+                
+                igbt_fix_para_t igbtPara = new igbt_fix_para_t();
+                MainWindowModel.devManager.wl7016Helper.GetIGBTPara(ref igbtPara);
+                igbtPara.system_fix_para.smu_channel_map = StringToByteArray(product.SmuChannelMap);
+                igbtPara.system_fix_para.ccs_channel_map = StringToByteArray(product.CcsChannelMap);
+                igbtPara.system_fix_para.gd_channel_map = StringToByteArray(product.GdChannelMap);
+                igbtPara.system_fix_para.gp_channel_map = StringToByteArray(product.GpChannelMap);
+                igbtPara.system_fix_para.hv_channel_map = StringToByteArray(product.HvChannelMap);
+                igbtPara.system_fix_para.rt1_channel_map = StringToByteArray(product.Rt1ChannelMap);
+                igbtPara.system_fix_para.rt2_channel_map = StringToByteArray(product.Rt2ChannelMap);
+                MainWindowModel.devManager.wl7016Helper.SetIGBTPara(ref igbtPara);
+            }
+        }
+
+        public byte[] StringToByteArray(string str)
+        {
+            string[] numberStrings = str.Split(',');
+
+            byte[] byteArray = new byte[8];
+            for (int i = 0; i < numberStrings.Length; i++)
+            {
+                byte number = Convert.ToByte(numberStrings[i]);
+                byteArray[i] = number;
+            }
+            return byteArray;
+        }
+       
 
         private void DeskTopInit()
         {
@@ -78,24 +120,14 @@ namespace IGBT_SET
         {
             try
             {
-                byte[] data = new byte[10];
-                data[0] = 8;
-                data[2] = 1;
-                //手动模式配置
-                if (MainWindowModel.dataCfg != null)
-                {
-                    MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.SysMangerCard, (byte)FuncCode.ParamerSet, data, (byte)CardType.PLCCard);
-                }
+                MainWindowModel.devManager.siemensS1200Helper.WriteBoolData("DB5.0.0", true);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("手动模式配置错误！ info ：" + ex.Message);
-                this.Close();
+                Environment.Exit(0);
             }
-            if (mainWindowModel.DataSendSuccessJudge(13))
-            {
-                mainWindowModel.IsInitSuccess = true;
-            }
+            mainWindowModel.IsInitSuccess = true;
         }
 
         private void tab_ctrl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -109,17 +141,9 @@ namespace IGBT_SET
             {
                 try
                 {
-                    byte[] data = new byte[10];
-                    data[0] = 0xA;
-                    data[1] = 1;
-                    data[2] = 1;
-                    if (MainWindowModel.dataCfg != null)
+                    for (uint i = 2048; i <= 2053; i++)
                     {
-                        MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
-                    }
-                    else
-                    {
-                        return;
+                        MainWindowModel.devManager.wL751301Helper.WriteGPIO(i, 0);
                     }
                 }
                 catch (Exception ex)
@@ -131,49 +155,32 @@ namespace IGBT_SET
             {
                 try
                 {
-                    byte[] data = new byte[10];
-                    data[0] = 0xA;
-                    data[1] = 2;
-                    data[2] = 1;
-                    if (MainWindowModel.dataCfg != null)
-                    {
-                        MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.PLCCard, (byte)FuncCode.ICES, data);
-                    }
-                    else
-                    {
-                        return;
-                    }
+                   
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
-            mainWindowModel.DataSendSuccessJudge(0xA);
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             try
             {
-                byte[] data = new byte[10];
-                data[0] = 8;
-                data[2] = 2;
-                //自动模式设置
-                if (MainWindowModel.dataCfg != null)
-                {
-                    MainWindowModel.dataCfg.SendProtocolDataCFG((byte)CardType.SysMangerCard, (byte)FuncCode.ParamerSet, data, (byte)CardType.PLCCard);
-                }
+                //plc 自动
+                MainWindowModel.devManager?.siemensS1200Helper.WriteBoolData("DB5.0.0", false);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("自动模式配置错误！ info ：" + ex.Message);
             }
-            if (mainWindowModel.DataSendSuccessJudge(8))
+
+            if (mainWindowModel != null)
             {
                 mainWindowModel.IsInitSuccess = true;
+                mainWindowModel.cts.Cancel();
             }
-            mainWindowModel.cts.Cancel();
             Thread.Sleep(1000);
         }
     }

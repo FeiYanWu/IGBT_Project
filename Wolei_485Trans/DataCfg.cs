@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,8 +29,8 @@ namespace Wolei_485Trans
     {
         public ProtocolDataTransceiver protocolDataTransceiver;
         public TcpClientHandle tcpDC_High;
-       
-       
+
+
         public Dictionary<string, DevInfo> devInfos = new Dictionary<string, DevInfo>();
 
         public DCPowerHandle DcPowerHandle = null;
@@ -48,10 +49,10 @@ namespace Wolei_485Trans
                 tmp.Port = int.Parse(dev.Attribute("Port").Value);
                 devInfos.Add(tmp.Name, tmp);
             }
-            protocolDataTransceiver = new ProtocolDataTransceiver(devInfos["WL7016"].DevIP, devInfos["WL7016"].Port, "WL_7016_01");
-            tcpDC_High = new TcpClientHandle(devInfos["DC_High"].DevIP, devInfos["DC_High"].Port);
+            //protocolDataTransceiver = new ProtocolDataTransceiver(devInfos["WL7016"].DevIP, devInfos["WL7016"].Port, "WL_7016_01");
             
-
+            
+            tcpDC_High = new TcpClientHandle(devInfos["DC_High"].DevIP, devInfos["DC_High"].Port);
             DcPowerHandle = new DCPowerHandle(devInfos["DC_Low"].DevIP, devInfos["DC_Low"].Port);
             DcPowerHandleConfig = new DCPowerHandle(devInfos["DC_Low"].DevIP, devInfos["DC_Low"].Port);
         }
@@ -69,7 +70,7 @@ namespace Wolei_485Trans
         /// <param name="cardtype">板卡类型 </param>
         /// <param name="fuctioncode">功能码</param>
         /// <param name="fuction">数据</param>
-        public void SendProtocolDataCFG_7016( byte fuctioncode, byte[] datas)
+        public void SendProtocolDataCFG_7016(byte fuctioncode, byte[] datas)
         {
             var _sysprotocol_t = new ProtocolData("WL_7016_01");
             _sysprotocol_t.FunctionCode = 0xFE;
@@ -95,8 +96,8 @@ namespace Wolei_485Trans
             _sysprotocol_t.CompatibilityCode = 0x01;
             _sysprotocol_t.Data = datas;
 
-            _sysprotocol_t.DataBlockSize = (uint)datas.Length;
-            protocolDataTransceiver.SendProtocolData(_sysprotocol_t, false);
+            //_sysprotocol_t.DataBlockSize = (uint)datas.Length;
+            //protocolDataTransceiver.SendProtocolData(_sysprotocol_t, false);
         }
 
         /// <summary>
@@ -125,11 +126,11 @@ namespace Wolei_485Trans
 
         }
         // 发送给PLC
-        public void SendProtocolDataCFG(byte cardtype, byte fuctioncode, byte[] fuction,byte target)
+        public void SendProtocolDataCFG(byte cardtype, byte fuctioncode, byte[] fuction, byte target)
         {
             try
             {
-                byte[] datas = Card485Cfg(cardtype, fuctioncode, fuction,target);
+                byte[] datas = Card485Cfg(cardtype, fuctioncode, fuction, target);
                 var _sysprotocol_t = new ProtocolData("WL_7016_01");
                 _sysprotocol_t.FunctionCode = 0x05;
                 _sysprotocol_t.SubFunctionCode = 0x03;
@@ -151,12 +152,12 @@ namespace Wolei_485Trans
         /// <param name="cardtype">板卡类型 </param>
         /// <param name="fuctioncode">功能码</param>
         /// <param name="fuction">数据</param>
-        public byte[] Card485Cfg(byte cardtype, byte fuctioncode , byte fuction)
+        public byte[] Card485Cfg(byte cardtype, byte fuctioncode, byte fuction)
         {
             byte[] data = new byte[9];
             data[0] = 0xAA;
             data[1] = 0x55;
-            data[2] = (byte)(data.Length-1);
+            data[2] = (byte)(data.Length - 1);
             data[3] = cardtype;
             data[4] = 100;
             data[5] = (byte)(100 + cardtype);
@@ -186,7 +187,7 @@ namespace Wolei_485Trans
             {
                 data[7 + icnt] = fuction[icnt];
             }
-            data[data.Length-1] = checksum(data);
+            data[data.Length - 1] = checksum(data);
             return data;
         }
 
@@ -196,7 +197,7 @@ namespace Wolei_485Trans
         /// <param name="cardtype">板卡类型 </param>
         /// <param name="fuctioncode">功能码</param>
         /// <param name="fuction">数据数组</param>
-        public byte[] Card485Cfg(byte cardtype, byte fuctioncode, byte[] fuction,byte target)
+        public byte[] Card485Cfg(byte cardtype, byte fuctioncode, byte[] fuction, byte target)
         {
             byte[] data = new byte[8 + fuction.Length];
             data[0] = 0xAA;
@@ -217,7 +218,7 @@ namespace Wolei_485Trans
         public byte checksum(byte[] data)
         {
             byte val = 0;
-            for (int i = 0; i < data.Length-1; i++)
+            for (int i = 0; i < data.Length - 1; i++)
             {
                 val += data[i];
             }
@@ -286,7 +287,7 @@ namespace Wolei_485Trans
         ResetOperation,
         KelvinNeedle = 0x40,
         KelvinTemperature,
-        PLCCfg =0x50,
+        PLCCfg = 0x50,
         PlcReq,
     }
     /// <summary>

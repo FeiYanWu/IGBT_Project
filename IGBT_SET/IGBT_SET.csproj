@@ -14,6 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,10 +28,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,6 +51,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ajq7n-qhz85-001.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.MSTSCLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -159,9 +162,22 @@
     </ApplicationDefinition>
     <Compile Include="Common\Notify.cs" />
     <Compile Include="Common\DevInfo.cs" />
+    <Compile Include="Common\Product.cs" />
+    <Compile Include="Common\XMLHelper.cs" />
+    <Compile Include="Models\SystemParam.cs" />
+    <Compile Include="StartupWindow.xaml.cs">
+      <DependentUpon>StartupWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainWindowModel.cs" />
+    <Compile Include="ViewModel\SystemConfigViewModel.cs" />
     <Compile Include="View\HighPower.xaml.cs">
       <DependentUpon>HighPower.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ICESTEST.xaml.cs">
+      <DependentUpon>ICESTEST.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\IGESTest.xaml.cs">
+      <DependentUpon>IGESTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\KelvinTest.xaml.cs">
       <DependentUpon>KelvinTest.xaml</DependentUpon>
@@ -181,6 +197,22 @@
     <Compile Include="View\SinglePulseTest.xaml.cs">
       <DependentUpon>SinglePulseTest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SystemConfig.xaml.cs">
+      <DependentUpon>SystemConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VcesatTest.xaml.cs">
+      <DependentUpon>VcesatTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VFTest.xaml.cs">
+      <DependentUpon>VFTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VgethTest.xaml.cs">
+      <DependentUpon>VgethTest.xaml</DependentUpon>
+    </Compile>
+    <Page Include="StartupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\HighPower.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,6 +229,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ICESTEST.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\IGESTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\KelvinTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,6 +258,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SinglePulseTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SystemConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VcesatTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VFTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VgethTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,20 +317,27 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IGBT_V2Helper\IGBT_V2Helper.csproj">
+      <Project>{3D8739B4-1E7A-4DCD-9D83-9B6FF2469B74}</Project>
+      <Name>IGBT_V2Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinformCtrLib\WinformCtrLib.csproj">
       <Project>{747145ad-98ed-487f-83d2-b5998c3aea24}</Project>
       <Name>WinformCtrLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wolei_485Trans\Wolei_485Trans.csproj">
-      <Project>{b774b234-6bb0-4687-95c9-4609da082463}</Project>
-      <Name>Wolei_485Trans</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="ajq7n-qhz85-001.ico" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Config\DevIpCfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="product.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

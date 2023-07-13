@@ -10,98 +10,94 @@
     <Grid Margin="0,-1,0,1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60*" MinWidth="110"/>
-            <ColumnDefinition Width="200*"  MinWidth="180"/>
+            <ColumnDefinition Width="60*" MinWidth="110"/>
+            <ColumnDefinition Width="160*"  MinWidth="180"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Fill="Wheat" Margin="2,2,2,2" Stroke="Black" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Grid Grid.Column="1" ShowGridLines="True" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions >
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="90*"/>
-            </Grid.RowDefinitions>
-            <Label FontSize="18" Grid.Row="0" Content="测试的通道选择：" HorizontalAlignment="Left" Margin="890,6,0,0" VerticalAlignment="Top" Height="34" Width="161" RenderTransformOrigin="0.5,0.5"/>
-            <ComboBox  x:Name="cbx_select" Grid.Row="0"  SelectedIndex="0" HorizontalAlignment="Left" Margin="1050,8,0,0" VerticalAlignment="Top" Width="83" Height="28" SelectionChanged="cbx_select_SelectionChanged" >
-                <ComboBoxItem>U上</ComboBoxItem>
-                <ComboBoxItem>U下</ComboBoxItem>
-                <ComboBoxItem>V上</ComboBoxItem>
-                <ComboBoxItem>V下</ComboBoxItem>
-                <ComboBoxItem>W上</ComboBoxItem>
-                <ComboBoxItem>W下</ComboBoxItem>
-                <ComboBoxItem>B刹上</ComboBoxItem>
-                <ComboBoxItem>B刹下</ComboBoxItem>
-            </ComboBox>
 
-            <Grid Grid.Row="1" ShowGridLines="True">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160*"/>
-                    <ColumnDefinition Width="50*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="正压(V)：" Margin="65,51,0,0" VerticalAlignment="Top"  Height="26" Width="68" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left"/>
-                <Label Grid.Column="0" Content="负压(V)：" Margin="65,91,0,0" VerticalAlignment="Top" Height="26" Width="69" HorizontalAlignment="Left"/>
-                <Label Grid.Column="0"  Content="设定电流(A)：" HorizontalAlignment="Left" Margin="256,50,0,0" VerticalAlignment="Top" Height="26" Width="92"/>
-                <Label Grid.Column="0"  Content="开通电阻：" HorizontalAlignment="Left" Margin="284,90,0,0" VerticalAlignment="Top" Height="26" Width="64"/>
-                <TextBox x:Name="tb_PositiveVolt" HorizontalAlignment="Left" Height="24" Margin="141,51,0,0" TextWrapping="Wrap" Text="10.0" VerticalAlignment="Top" Width="50" Grid.Column="0"/>
-                <TextBox x:Name="tb_NegativeVolt"  HorizontalAlignment="Left" Height="24" Margin="141,91,0,0" TextWrapping="Wrap" Text="10.0" VerticalAlignment="Top" Width="50" Grid.Column="0"/>
-                <TextBox x:Name="tb_SetEle" HorizontalAlignment="Left" Height="24" Margin="350,51,0,0" TextWrapping="Wrap" Text="10.0" VerticalAlignment="Top" Width="50" Grid.Column="0"/>
-                <TextBox x:Name="tb_SetResistance" HorizontalAlignment="Left" Height="23" Margin="350,92,0,0" TextWrapping="Wrap" Text="10.0" VerticalAlignment="Top" Width="50"/>
-                <Label Content="关断电阻：" HorizontalAlignment="Left" Margin="487,50,0,0" VerticalAlignment="Top" Grid.Column="0" Height="26" Width="67"/>
-                <Label Content="过流保护值：" HorizontalAlignment="Left" Margin="475,90,0,0" VerticalAlignment="Top" Grid.Column="0" Height="26" Width="79"/>
-                <TextBox x:Name="tb_OffResistance" HorizontalAlignment="Left" Height="24" Margin="559,51,0,0" TextWrapping="Wrap" Text="10.0" VerticalAlignment="Top" Width="50" Grid.Column="0"/>
-                <TextBox x:Name="tb_OverEleProtect" HorizontalAlignment="Left" Height="24" Margin="559,90,0,0" TextWrapping="Wrap" Text="10.0" VerticalAlignment="Top" Width="50" Grid.Column="0"/>
-
-                <Label Content="脉冲1宽度：" Margin="479,136,0,0" VerticalAlignment="Top" Grid.Column="0" Height="26" Width="69" HorizontalAlignment="Left"/>
-
-                <TextBox IsEnabled="False" x:Name="tb_PulseWidth" HorizontalAlignment="Left" Height="24" Margin="559,131,0,0" TextWrapping="Wrap" Text="{Binding Pulse1_width}" VerticalAlignment="Top" Width="51" Grid.Column="0"/>
-
-                <Label Content="脉冲2宽度(us)：" HorizontalAlignment="Left" Margin="664,51,0,0" VerticalAlignment="Top" Grid.Column="0" Height="25" Width="90"/>
-                <TextBox x:Name="tb_PulseWidth2" HorizontalAlignment="Left" Height="23" Margin="764,52,0,0" TextWrapping="Wrap" Text="10.0" VerticalAlignment="Top" Width="50" Grid.Column="0"/>
-                <Label Content="脉冲2次数(us)：" HorizontalAlignment="Left" Margin="664,89,0,0" VerticalAlignment="Top" Grid.Column="0" Height="25" Width="90"/>
-                <TextBox  x:Name="tb_PulseCount" HorizontalAlignment="Left" Height="23" Margin="764,90,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="50" Grid.Column="0"/>
-
-
-                <CheckBox x:Name="ck_ResistanceEnable" Content="栅极电阻启用" Style="{StaticResource CheckBoxStyle}"  HorizontalAlignment="Left" Margin="705,133,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.639,0.95" Height="29" Width="111" Grid.Column="0" Checked="ck_ResistanceEnable_Checked" Unchecked="ck_ResistanceEnable_Unchecked"/>
-
-                <Label Content="栅极配置：" Grid.Column="0" HorizontalAlignment="Left" Margin="18,5,0,0" VerticalAlignment="Top" Height="26"/>
-
-                <Button Style="{StaticResource ButtonStyle}" x:Name="btn_PVOutput" Content="栅极正压输出" HorizontalAlignment="Left" Margin="61,133,0,0" VerticalAlignment="Top" Width="87" Height="33" RenderTransformOrigin="1.338,0.818" Grid.Column="0" Click="btn_PVOutput_Click" />
-                <Button Style="{StaticResource ButtonStyle}" x:Name="btn_NVOutput" Content="栅极负压输出" HorizontalAlignment="Left" Margin="210,133,0,0" VerticalAlignment="Top" Width="87" Height="33" RenderTransformOrigin="1.338,0.818" Grid.Column="0" Click="btn_NVOutput_Click"/>
-                <Button Style="{StaticResource ButtonStyle}" x:Name="btn_PulseOutput" Content="脉冲输出" HorizontalAlignment="Left" Margin="359,133,0,0" VerticalAlignment="Top" Width="87" Height="33" RenderTransformOrigin="1.338,0.818" Grid.Column="0" Click="btn_PulseOutput_Click" />
-
-                <Button Style="{StaticResource ButtonStyle}" x:Name="btn_Charge" Content="充电" HorizontalAlignment="Left" Margin="37,126,0,0" VerticalAlignment="Top" Width="66" Height="32" RenderTransformOrigin="1.338,0.818" Grid.Column="1" Click="btn_Charge_Click"/>
-                <Button Style="{StaticResource ButtonStyle}" x:Name="btn_Discharge" Content="放电" HorizontalAlignment="Left" Margin="130,126,0,0" VerticalAlignment="Top" Width="68" Height="32" RenderTransformOrigin="1.338,0.818" Grid.Column="1" Click="btn_Discharge_Click"/>
-                <Label Content="PLC配置：" Grid.Column="1" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top"/>
-                <Label Content="负载电感：" HorizontalAlignment="Left" Margin="17,60,0,0" VerticalAlignment="Top"   Grid.Column="1" Height="25" Width="70" RenderTransformOrigin="0.5,0.5"/>
-
-                <ComboBox  x:Name="cbx_inductance" SelectedIndex="0" HorizontalAlignment="Left" Margin="87,60,0,0" VerticalAlignment="Top" Width="78" Grid.Column="1" Height="21" >
-                    <ComboBoxItem >20</ComboBoxItem>
-                    <ComboBoxItem >50</ComboBoxItem>
-                    <ComboBoxItem >100</ComboBoxItem>
-                    <ComboBoxItem >200</ComboBoxItem>
-                    <ComboBoxItem >500</ComboBoxItem>
-                    <ComboBoxItem >1000</ComboBoxItem>
-                    <ComboBoxItem >2000</ComboBoxItem>
-                </ComboBox>
-
-                <Label Content="(mh)" HorizontalAlignment="Left" Margin="177,57,0,0" VerticalAlignment="Top" Grid.Column="1" Height="25" Width="41"/>
-                <Label Content="脉冲间隔(us):" HorizontalAlignment="Left" Margin="670,13,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="tb_PulseInterval" HorizontalAlignment="Left" Height="23" Margin="764,14,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="50"/>
-            </Grid>
-
-        </Grid>
-
-        <Rectangle Fill="Wheat" Margin="2,2,2,2" Stroke="Black"/>
-
+        <Rectangle Fill="Wheat" Margin="2,2,2,2" Stroke="Black"  Grid.Column="0" />
         <Label Content="高压电源配置 :" Margin="17,21,0,0" HorizontalAlignment="Left" Width="111" Height="26" VerticalAlignment="Top"/>
         <Label Content="电压(V)：" HorizontalAlignment="Left" Margin="23,67,0,0" VerticalAlignment="Top" Height="25" Width="72"/>
         <Label Content="电流(A)：" HorizontalAlignment="Left" Margin="23,111,0,0" VerticalAlignment="Top" Height="25" Width="74"/>
         <Label Content="保护电压(V)：" HorizontalAlignment="Left" Margin="165,68,0,0" VerticalAlignment="Top" Height="25" Width="96"/>
-        <Label Content="保护电流(A)：" HorizontalAlignment="Left" Margin="167,111,0,0" VerticalAlignment="Top" Height="25" Width="98"/>
+        <Label Content="保护电流(A)：" HorizontalAlignment="Left" Margin="165,113,0,0" VerticalAlignment="Top" Height="25" Width="98"/>
         <TextBox x:Name="tb_Volt" HorizontalAlignment="Left" Height="23" Margin="91,67,0,0" TextWrapping="Wrap" Text="100.0" VerticalAlignment="Top" Width="50"/>
-        <TextBox x:Name="tb_VoltProtect" HorizontalAlignment="Left" Height="23" Margin="256,67,0,0" TextWrapping="Wrap" Text="100.0" VerticalAlignment="Top" Width="50"/>
-        <TextBox x:Name="tb_Ele" HorizontalAlignment="Left" Height="23" Margin="91,112,0,0" TextWrapping="Wrap" Text="100.0" VerticalAlignment="Top" Width="50"/>
-        <TextBox x:Name="tb_EleProtect" HorizontalAlignment="Left" Height="23" Margin="258,112,0,0" TextWrapping="Wrap" Text="100.0" VerticalAlignment="Top" Width="50"/>
-
+        <TextBox x:Name="tb_VoltProtect" HorizontalAlignment="Left" Height="23" Margin="258,72,0,0" TextWrapping="Wrap" Text="1000.0" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="tb_Ele" HorizontalAlignment="Left" Height="23" Margin="91,112,0,0" TextWrapping="Wrap" Text="0.8" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="tb_EleProtect" HorizontalAlignment="Left" Height="23" Margin="258,112,0,0" TextWrapping="Wrap" Text="0.8" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.24,0.478"/>
         <Button Style="{StaticResource ButtonStyle}" x:Name="btn_PowerOn" Content="高压电源上电" HorizontalAlignment="Left" Margin="57,166,0,0" VerticalAlignment="Top" Width="87" Height="32" Click="btn_PowerOn_Click"/>
         <Button Style="{StaticResource ButtonStyle}" x:Name="btn_PowerOff" Content="高压电源下电" HorizontalAlignment="Left" Margin="193,166,0,0" Width="87" RenderTransformOrigin="1.338,0.818" Height="32" VerticalAlignment="Top" Click="btn_PowerOff_Click"/>
-        <Button  x:Name="btn_MultiPulseEnable" Style="{StaticResource ButtonStyle}"  Content="双脉冲测试使能" Grid.Column="1" HorizontalAlignment="Left" Margin="60,4,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="btn_MultiPulseEnable_Click"/>
+
+
+        <Rectangle Fill="Wheat" Margin="2,2,2,2" Stroke="Black"  Grid.Column="1" />
+        <Label Content="栅极电源配置 :" Margin="28,21,0,0" HorizontalAlignment="Left" Width="111" Height="26" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Grid.Column="1" Content="正压(V)：" Margin="28,68,0,0" VerticalAlignment="Top"  Height="26" Width="68" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left"/>
+        <Label Grid.Column="1" Content="负压(V)：" Margin="175,69,0,0" VerticalAlignment="Top" Height="26" Width="69" HorizontalAlignment="Left"/>
+        <TextBox x:Name="tb_PositiveVolt" HorizontalAlignment="Left" Height="24" Margin="106,72,0,0" TextWrapping="Wrap" Text="15.0" VerticalAlignment="Top" Width="50" Grid.Column="1" RenderTransformOrigin="0.16,0.5"/>
+        <TextBox x:Name="tb_NegativeVolt"  HorizontalAlignment="Left" Height="24" Margin="244,71,0,0" TextWrapping="Wrap" Text="8.0" VerticalAlignment="Top" Width="50" Grid.Column="1"/>
+        <Button Style="{StaticResource ButtonStyle}" x:Name="btn_PVOutput" Content="栅极正压输出" HorizontalAlignment="Left" Margin="52,165,0,0" VerticalAlignment="Top" Width="87" Height="33" RenderTransformOrigin="1.338,0.818" Grid.Column="1" Click="btn_PVOutput_Click" />
+        <Button Style="{StaticResource ButtonStyle}" x:Name="btn_NVOutput" Content="栅极负压输出" HorizontalAlignment="Left" Margin="194,165,0,0" VerticalAlignment="Top" Width="87" Height="33" RenderTransformOrigin="1.338,0.818" Grid.Column="1" Click="btn_NVOutput_Click"/>
+
+        <Rectangle Fill="Wheat" Margin="3,4,1,0" Stroke="Black" Grid.Column="2"/>
+
+        <Label Content="参数配置" Margin="25,21,0,0" HorizontalAlignment="Left" Width="111" Height="26" VerticalAlignment="Top" Grid.Column="2"/>
+
+
+        <Label Grid.Column="2" Content="测试单元：" HorizontalAlignment="Left" Margin="533,69,0,0" VerticalAlignment="Top" Height="34" Width="161" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.743"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="1.044"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <ComboBox  x:Name="cbx_select" Grid.Column="2" HorizontalAlignment="Left" Margin="604,71,0,0" VerticalAlignment="Top" SelectedIndex="0" Height="21" Width="78" RenderTransformOrigin="3.733,1.845" >
+            <ComboBoxItem>None</ComboBoxItem>
+            <ComboBoxItem>U上</ComboBoxItem>
+            <ComboBoxItem>U下</ComboBoxItem>
+            <ComboBoxItem>V上</ComboBoxItem>
+            <ComboBoxItem>V下</ComboBoxItem>
+            <ComboBoxItem>W上</ComboBoxItem>
+            <ComboBoxItem>W下</ComboBoxItem>
+            <ComboBoxItem>B刹上</ComboBoxItem>
+            <ComboBoxItem>B刹下</ComboBoxItem>
+        </ComboBox>
+
+        <Label Grid.Column="2"  Content="设定电流(A)：" HorizontalAlignment="Left" Margin="23,70,0,0" VerticalAlignment="Top" Height="26" Width="92" RenderTransformOrigin="0.543,-0.077"/>
+        <TextBox x:Name="tb_SetEle" HorizontalAlignment="Left" Height="24" Margin="115,70,0,0" TextWrapping="Wrap" Text="10.0" VerticalAlignment="Top" Width="50" Grid.Column="2" RenderTransformOrigin="0.76,0.208"/>
+
+        <Label Grid.Column="2"  Content="开通电阻：" HorizontalAlignment="Left" Margin="200,70,0,0" VerticalAlignment="Top" Height="26" Width="64" RenderTransformOrigin="3.25,-1.423"/>
+        <TextBox x:Name="tb_SetResistance" HorizontalAlignment="Left" Height="23" Margin="269,70,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="50" Grid.Column="2"/>
+        
+        <Label Content="脉冲2宽度(us)：" HorizontalAlignment="Left" Margin="354,70,0,0" VerticalAlignment="Top" Grid.Column="2" Height="25" Width="90"/>
+        <TextBox x:Name="tb_PulseWidth2" HorizontalAlignment="Left" Height="23" Margin="461,70,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="50" Grid.Column="2" RenderTransformOrigin="1.16,0.478"/>
+
+        <Label Content="关断电阻：" HorizontalAlignment="Left" Margin="197,104,0,50" Grid.Column="2" Width="67" RenderTransformOrigin="0.316,0.382"/>
+        <Label Content="上桥保护电流：" HorizontalAlignment="Left" Margin="20,104,0,0" VerticalAlignment="Top" Grid.Column="2" Height="26" Width="92" RenderTransformOrigin="0.283,0.577"/>
+        <Label Content="下桥保护电流：" HorizontalAlignment="Left" Margin="20,139,0,0" VerticalAlignment="Top" Grid.Column="2" Height="26" Width="92" RenderTransformOrigin="0.283,0.577"/>
+        <TextBox x:Name="tb_OffResistance" HorizontalAlignment="Left" Height="24" Margin="267,108,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="50" Grid.Column="2" />
+        <TextBox x:Name="tb_OverEleProtect" HorizontalAlignment="Left" Height="24" Margin="117,108,0,0" TextWrapping="Wrap" Text="1000.0" VerticalAlignment="Top" Width="50" Grid.Column="2" RenderTransformOrigin="0.08,2.833"/>
+        <TextBox x:Name="tb_OverEleProtect_down" HorizontalAlignment="Left" Height="24" Margin="117,141,0,0" TextWrapping="Wrap" Text="1000.0" VerticalAlignment="Top" Width="50" Grid.Column="2" RenderTransformOrigin="0.08,2.833"/>
+        <Label Content="脉冲1宽度：" Margin="200,141,0,0" VerticalAlignment="Top" Grid.Column="2" Height="26" Width="69" HorizontalAlignment="Left" RenderTransformOrigin="0.232,0.077"/>
+        <TextBox IsEnabled="False" x:Name="tb_PulseWidth" HorizontalAlignment="Left" Height="24" Margin="272,139,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="51" Grid.Column="2" RenderTransformOrigin="0.47,-1.615" />
+        <Label Content="脉冲2次数：" HorizontalAlignment="Left" Margin="354,103,0,0" VerticalAlignment="Top" Grid.Column="2" Height="25" Width="90"/>
+        <TextBox  x:Name="tb_PulseCount" HorizontalAlignment="Left" Height="23" Margin="461,105,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="50" Grid.Column="2"/>
+        <Button Style="{StaticResource ButtonStyle}" x:Name="btn_PulseOutput" Content="脉冲输出" HorizontalAlignment="Left" Margin="480,167,0,0" VerticalAlignment="Top" Width="87" Height="33" RenderTransformOrigin="1.338,0.818" Grid.Column="2" Click="btn_PulseOutput_Click" />
+        <Button Style="{StaticResource ButtonStyle}" x:Name="btn_Charge" Content="充电" HorizontalAlignment="Left" Margin="604,167,0,0" VerticalAlignment="Top" Width="66" Height="32" RenderTransformOrigin="1.338,0.818" Click="btn_Charge_Click" Grid.Column="2"/>
+        <Button Style="{StaticResource ButtonStyle}" x:Name="btn_Discharge" Content="放电" HorizontalAlignment="Left" Margin="712,166,0,0" VerticalAlignment="Top" Width="68" Height="32" RenderTransformOrigin="1.338,0.818" Click="btn_Discharge_Click" Grid.Column="2"/>
+        <Label Content="负载电感：" HorizontalAlignment="Left" Margin="534,103,0,92" Height="25" Width="70" RenderTransformOrigin="0.5,0.5" Grid.Column="2"/>
+        <ComboBox  x:Name="cbx_inductance" SelectedIndex="0" HorizontalAlignment="Left" Margin="604,103,0,0" VerticalAlignment="Top" Width="78" Height="21" RenderTransformOrigin="7.233,-0.338" Grid.Column="2">
+            <ComboBoxItem >20</ComboBoxItem>
+            <ComboBoxItem >50</ComboBoxItem>
+            <ComboBoxItem >100</ComboBoxItem>
+            <ComboBoxItem >200</ComboBoxItem>
+            <ComboBoxItem >500</ComboBoxItem>
+            <ComboBoxItem >1000</ComboBoxItem>
+        </ComboBox>
+        <Label Content="(mh)" HorizontalAlignment="Left" Margin="698,99,0,0" VerticalAlignment="Top" Height="25" Width="41" RenderTransformOrigin="14.095,-1.519" Grid.Column="2"/>
+        <Label Content="脉冲间隔(us):" HorizontalAlignment="Left" Margin="354,135,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.646,0.44" Grid.Column="2"/>
+        <TextBox x:Name="tb_PulseInterval" HorizontalAlignment="Left" Height="23" Margin="461,139,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.74,-0.043"  Grid.Column="2" />
+        <Button  x:Name="btn_MultiPulseEnable" Style="{StaticResource ButtonStyle}"  Content="测试准备" Grid.Column="2" HorizontalAlignment="Left" Margin="344,166,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="btn_MultiPulseEnable_Click" RenderTransformOrigin="0.556,0.956"/>
     </Grid>
 </UserControl>

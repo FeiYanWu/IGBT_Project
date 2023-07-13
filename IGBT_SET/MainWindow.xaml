@@ -20,10 +20,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <GroupBox  Grid.Row="0" Header="高压电源" Margin="5,8,3,0">
-                <View:HighPower Margin="0,0,0,0"/>
+                <View:HighPower Margin="0,0,0,0" IsEnabled="False"/>
             </GroupBox>
             <GroupBox Header="栅极电源" Margin="5,8,3,0" Grid.Row="1">
-                <View:LowPower Margin="0,0,0,0"/>
+                <View:LowPower Margin="0,0,0,0" IsEnabled="False"/>
             </GroupBox>
             <GroupBox Header="PLC控制" Margin="5,8,3,0" Grid.Row="2">
                 <View:PLCCtrl x:Name="Plc_ctrl" Margin="0,0,0,0"/>
@@ -38,36 +38,71 @@
                 <RowDefinition Height="260" MinHeight="30" MaxHeight="350"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TabControl x:Name="tab_ctrl" Grid.Row="0" Margin="5,5,5,5" SelectionChanged="tab_ctrl_SelectionChanged" Grid.ColumnSpan="2" >
+            <TabControl x:Name="tab_ctrl" Grid.Row="0" Margin="5,5,5,5" SelectionChanged="tab_ctrl_SelectionChanged" Grid.ColumnSpan="2" IsEnabled="True">
                 <TabItem Header="开尔文测试" >
                     <Grid Background="#FFE5E5E5" >
-                        <View:KelvinTest Margin="0,0,0,0" Grid.ColumnSpan="2" IsEnabled="{Binding IsInitSuccess}"/>
+                        <View:KelvinTest Margin="0,0,0,0.2" Grid.ColumnSpan="2" IsEnabled="{Binding IsInitSuccess}"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="单脉冲测试" IsEnabled="{Binding IsKelvinSuccess}">
+                <TabItem Header="单脉冲测试" IsEnabled="True">
                     <Grid Background="#FFE5E5E5" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="177*"/>
-                            <ColumnDefinition Width="1409*"/>
-                        </Grid.ColumnDefinitions>
-                        <View:SinglePulseTest Margin="3,3,0,0" Grid.ColumnSpan="2"/>
+                        <View:SinglePulseTest Margin="3,3,0,0"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="双脉冲测试" IsEnabled="{Binding IsKelvinSuccess}">
+                <TabItem Header="双脉冲测试"  IsEnabled="True">
                     <Grid Background="#FFE5E5E5">
-                        <View:MultiPulseTest Margin="3,3,0,0" Grid.ColumnSpan="2"/>
+                        <View:MultiPulseTest Margin="3,3,0,0"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="短路测试" IsEnabled="{Binding IsKelvinSuccess}">
+                <TabItem Header="短路测试" IsEnabled="True" HorizontalAlignment="Left" Width="64">
                     <Grid Background="#FFE5E5E5">
                         <View:ShortCircuitTest Margin="3,3,0,0"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="ICES" IsEnabled="True" HorizontalAlignment="Left" Width="41">
+                    <Grid Background="#FFE5E5E5" >
+                        <View:ICESTEST Margin="3,3,0,0" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="IGES" IsEnabled="True">
+                    <Grid Background="#FFE5E5E5" >
+
+                        <View:IGESTest Margin="3,3,0,0" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Vgeth" IsEnabled="True">
+                    <Grid Background="#FFE5E5E5" >
+
+                        <View:VgethTest Margin="3,3,0,0" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </TabItem>
+
+
+                <TabItem Header="Vf" IsEnabled="True">
+                    <Grid Background="#FFE5E5E5" >
+
+                        <View:VFTest Margin="3,3,0,0" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </TabItem>
+
+
+                <TabItem Header="Vcesat" IsEnabled="True">
+                    <Grid Background="#FFE5E5E5" >
+
+                        <View:VCESatTest Margin="3,3,0,0" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="系统配置" IsEnabled="True">
+                    <Grid Background="#FFE5E5E5">
+                        <View:SystemConfig Margin="3,3,0,0"/>
                     </Grid>
                 </TabItem>
             </TabControl>
 
             <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="AliceBlue" Grid.ColumnSpan="2" />
 
-            <telerik:RadDocking Name="view_dock"  Grid.Row="1"  Margin="5,5,5,5" Background="Transparent" >
+            <telerik:RadDocking Name="view_dock"  IsEnabled="False" Grid.Row="1"  Margin="5,5,5,5" Background="Transparent" >
                 <telerik:RadSplitContainer HorizontalAlignment="Stretch" Width="1582" >
                     <telerik:RadPaneGroup HorizontalAlignment="Stretch" Margin="0,0,0,0" >
                         <telerik:RadPane HorizontalAlignment="Stretch" Title="示波器监控界面" >

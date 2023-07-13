@@ -20,47 +20,20 @@
         <!--<Grid.DataContext>
             <vw:MainWindowModel></vw:MainWindowModel>
         </Grid.DataContext>-->
-        <Button  x:Name="btn_foreward" Style="{StaticResource ButtonStyle}" FontSize="15" Content="正转180°" HorizontalAlignment="Left" Margin="18,35,0,0" Width="75" Grid.Row="1" Height="32" VerticalAlignment="Top" Click="btn_foreward_Click"/>
-        <Ellipse x:Name="Ststus_foreward"   HorizontalAlignment="Left" Margin="101,39,0,0" Grid.Row="1" Stroke="Black" Height="24"  Width="32" RenderTransformOrigin="0.062,0.375" VerticalAlignment="Top">
-        <Ellipse.Style>
-                <Style TargetType="Ellipse">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{ Binding FWDArrivedSignal1}"  Value="false">
-                            <Setter Property="Shape.Fill" Value="LightSteelBlue"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{ Binding FWDArrivedSignal1}"  Value="true">
-                            <Setter Property="Shape.Fill" Value="Green"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Ellipse.Style>
-        </Ellipse>
-        <Button  x:Name="btn_reversal" Style="{StaticResource ButtonStyle}" FontSize="15" Content="反转180°" Margin="166,35,0,0" Grid.Row="1" Height="32"  Width="75" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btn_reversal_Click"/>
-        <Ellipse x:Name="Ststus_reversal"   HorizontalAlignment="Left"  Height="24"  Width="32" Margin="249,39,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top">
-            <Ellipse.Style>
-                <Style TargetType="Ellipse">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{ Binding FWDArrivedSignal2}"  Value="false">
-                            <Setter Property="Shape.Fill" Value="LightSteelBlue"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{ Binding FWDArrivedSignal2}"  Value="true">
-                            <Setter Property="Shape.Fill" Value="Green"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Ellipse.Style>
-        </Ellipse>
+        <Button  x:Name="btn_reversal" Style="{StaticResource ButtonStyle}" FontSize="15" Content="反转180°" HorizontalAlignment="Left" Margin="18,35,0,0" Width="75" Grid.Row="1" Height="32" VerticalAlignment="Top" Click="btn_reversal_Click"/>
 
+        <Button  x:Name="btn_foreward" Style="{StaticResource ButtonStyle}" FontSize="15" Content="正转到0" Margin="166,35,0,0" Grid.Row="1" Height="32"  Width="75" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btn_foreward_Click"/>
+        
         <Button x:Name="btn_Product" FontSize="15" Style="{StaticResource ButtonStyle}"  Grid.Row="2"  Content="产品上升/下降到位" HorizontalAlignment="Left" Margin="18,35,0,0" VerticalAlignment="Top" Width="147" Height="48" Click="btn_Product_Click"/>
         <Button x:Name="btn_Needle" FontSize="15" Style="{StaticResource ButtonStyle}"  Grid.Row="2"  Content="针床上升/下降到位" HorizontalAlignment="Left" Margin="18,95,0,0" VerticalAlignment="Top" Width="147" Height="45" RenderTransformOrigin="0.5,0.5" Click="btn_Needle_Click"/>
 
-        <Label Content="工装1温度(°C)" HorizontalAlignment="Left" Margin="17,35,0,0" VerticalAlignment="Top" Height="40" Grid.Row="3" Width="97"/>
-        <Label Content="工装2温度(°C)" HorizontalAlignment="Left" Margin="167,35,0,0" VerticalAlignment="Top" Height="30" Grid.Row="3"/>
+        <Label Content="工装1温度(°C)" HorizontalAlignment="Left" Margin="17,35,0,0" VerticalAlignment="Top" Height="40" Grid.Row="3" Width="97" IsEnabled="False"/>
+        <Label Content="工装2温度(°C)" HorizontalAlignment="Left" Margin="167,35,0,0" VerticalAlignment="Top" Height="30" Grid.Row="3" IsEnabled="False"/>
         <TextBox x:Name="tb_OperitionTemp1" IsEnabled="False" FontSize="28"  HorizontalAlignment="Left" Height="38" Margin="17,66,0,0" TextWrapping="Wrap" Text="{Binding OperationTemperature_1}" VerticalAlignment="Top" Width="115" FontWeight="Bold" Grid.Row="3"/>
         <TextBox x:Name="tb_OperitionTemp2" IsEnabled="False" FontSize="28"  HorizontalAlignment="Left" Height="38" Margin="167,66,0,0" TextWrapping="Wrap" Text="{Binding OperationTemperature_2}" VerticalAlignment="Top" Width="115" FontWeight="Bold" Grid.Row="3"/>
         <Label Content="设置温度：" HorizontalAlignment="Left" Margin="25,117,0,0" VerticalAlignment="Top" Grid.Row="3"/>
-        <TextBox x:Name="tb_SetTemp" FontSize="28" HorizontalAlignment="Left" Height="41" Margin="17,121,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="115" Grid.Row="3"/>
-        <Button  Style="{StaticResource ButtonStyle}"  x:Name="btn_tempterature" Content="温度设置" HorizontalAlignment="Left" Margin="167,121,0,0" VerticalAlignment="Top" Width="115" Height="41" Click="btn_tempterature_Click" Grid.Row="3"/>
+        <TextBox x:Name="tb_SetTemp"  FontSize="28" HorizontalAlignment="Left" Height="41" Margin="17,121,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="115" Grid.Row="3"/>
+        <Button  Style="{StaticResource ButtonStyle}"   x:Name="btn_tempterature" Content="温度设置" HorizontalAlignment="Left" Margin="167,121,0,0" VerticalAlignment="Top" Width="115" Height="41" Click="btn_tempterature_Click" Grid.Row="3"/>
 
         <Label FontSize="20" Content="PLC控制 ：" Margin="0,0,186,0" FontWeight="Bold"/>
         <Ellipse x:Name="Status_Poduct"  HorizontalAlignment="Left"  Height="24"  Width="32" Margin="188,48,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" RenderTransformOrigin="-3.312,0.625" >
@@ -94,7 +67,7 @@
         <Label Content="产品托盘控制：" HorizontalAlignment="Left" Margin="8,5,0,0" Grid.Row="1" VerticalAlignment="Top" FontStyle="Italic" FontSize="14"/>
         <Label Content="产品/针床控制：" HorizontalAlignment="Left" Margin="8,5,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="14" FontStyle="Italic"/>
         <Label Content="工装温度设置：" HorizontalAlignment="Left" Margin="8,5,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="14" FontStyle="Italic"/>
-        <Button  x:Name="btn_reset" Style="{StaticResource ButtonStyle}" FontSize="15" Content="复位" HorizontalAlignment="Left" Margin="18,86,0,0" Width="75" Grid.Row="1" Height="32" VerticalAlignment="Top" Click="btn_reset_Click"/>
+        <Button  x:Name="btn_reset" Style="{StaticResource ButtonStyle}" FontSize="15" Content="回原点" HorizontalAlignment="Left" Margin="18,86,0,0" Width="75" Grid.Row="1" Height="32" VerticalAlignment="Top" Click="btn_reset_Click"/>
         <Ellipse x:Name="Ststus_reset"   HorizontalAlignment="Left" Margin="101,88,0,0" Grid.Row="1" Stroke="Black" Height="24"  Width="32" RenderTransformOrigin="0.062,0.375" VerticalAlignment="Top">
             <Ellipse.Style>
                 <Style TargetType="Ellipse">
@@ -139,7 +112,7 @@
         </Ellipse>
         <Label Content="上升" HorizontalAlignment="Left" Margin="185,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
         <Label Content="下降" HorizontalAlignment="Left" Margin="248,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <Button  Style="{StaticResource ButtonStyle}"  x:Name="btn_tempterature_Open" Content="温度开" HorizontalAlignment="Left" Margin="17,178,0,0" VerticalAlignment="Top" Width="115" Height="41" Grid.Row="3" Click="btn_tempterature_Open_Click"/>
-        <Button  Style="{StaticResource ButtonStyle}"  x:Name="btn_tempterature_Close" Content="温度关" HorizontalAlignment="Left" Margin="167,178,0,0" VerticalAlignment="Top" Width="115" Height="41" Grid.Row="3" Click="btn_tempterature_Close_Click"/>
+        <Button  IsEnabled="False" Style="{StaticResource ButtonStyle}"  x:Name="btn_tempterature_Open" Content="温度开" HorizontalAlignment="Left" Margin="17,178,0,0" VerticalAlignment="Top" Width="115" Height="41" Grid.Row="3" Click="btn_tempterature_Open_Click"/>
+        <Button  IsEnabled="False" Style="{StaticResource ButtonStyle}"  x:Name="btn_tempterature_Close" Content="温度关" HorizontalAlignment="Left" Margin="167,178,0,0" VerticalAlignment="Top" Width="115" Height="41" Grid.Row="3" Click="btn_tempterature_Close_Click"/>
     </Grid>
 </UserControl>
