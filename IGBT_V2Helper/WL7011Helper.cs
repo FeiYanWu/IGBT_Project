@@ -23,7 +23,7 @@ namespace IGBT_V2Helper
             int errCode = WLIGBTHelper.cbb_para_set_para(Handle, ref igbt_fix_para);
             if (errCode != 0)
             {
-                MessageBox.Show($"设置系统管理板参数错误,错误代码：{errCode}");
+                MessageBox.Show($"设置栅极保护板参数错误,错误代码：{errCode}");
                 return false;
             }
             return true;
@@ -34,7 +34,7 @@ namespace IGBT_V2Helper
             int errCode = WLIGBTHelper.cbb_fault_clear(Handle);
             if (errCode != 0)
             {
-                MessageBox.Show($"清除高压脉冲板故障错误：{errCode}");
+                MessageBox.Show($"清除栅极保护板故障错误：{errCode}");
                 return false;
             }
             return true;

@@ -38,7 +38,5 @@
                 </Style>
             </Ellipse.Style>
         </Ellipse>
-
-
     </Grid>
 </UserControl>

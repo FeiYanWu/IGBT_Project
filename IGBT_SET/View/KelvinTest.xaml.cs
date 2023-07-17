@@ -39,8 +39,9 @@ namespace IGBT_SET.View
                 {
                     windowModel = MainWindowModel.GetInstance();
                 }
-                MainWindowModel.devManager.ClearAllFault();
+
             }
+            MainWindowModel.devManager.ClearAllFault();
         }
 
         //全选

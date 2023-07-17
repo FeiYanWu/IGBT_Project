@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-
+using static IGBT_V2Helper.IGBStructs;
 
 namespace IGBT_V2Helper
 {
@@ -31,7 +31,6 @@ namespace IGBT_V2Helper
         public WL7020Helper wl7020Helper;
         public WL7016Helper wl7016Helper;
         public WL7010Helper wl7010Helper;
-
         public WL7001Helper wl7001Helper;
         public WL7005Helper wl7005Helper;
         public WL7505Helper wl7505Helper;
@@ -93,8 +92,6 @@ namespace IGBT_V2Helper
             wl7505Helper.ClearFault();
             wl7011Helper.ClearFault();
         }
-
-
         public void CloseAllDevice()
         {
             wL751301Helper?.Dispose();
@@ -112,5 +109,25 @@ namespace IGBT_V2Helper
             DcPowerHandle?.Dispose();
             DcPowerHandleConfig?.Dispose();
         }
+        public bool LoadParam(ref igbt_fix_para_t igbtPara)
+        {
+            if (wl7016Helper.SetIGBTPara(ref igbtPara) &&
+                wl7505Helper.SetIGBTPara(ref igbtPara) &&
+                wl7001Helper.SetIGBTPara(ref igbtPara) &&
+                wl7010Helper.SetIGBTPara(ref igbtPara) &&
+                wl7001Helper.SetIGBTPara(ref igbtPara) &&
+                wl7011Helper.SetIGBTPara(ref igbtPara) &&
+                wL751301Helper.SetIGBTPara(ref igbtPara) &&
+                wL751302Helper.SetIGBTPara(ref igbtPara) &&
+                wl7005Helper.SetIGBTPara(ref igbtPara))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

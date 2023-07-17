@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static IGBT_V2Helper.IGBStructs;
@@ -17,6 +19,38 @@ namespace IGBT_V2Helper
         {
             this.IP = ip;
             ConnectWL7016();
+        }
+
+        public bool TestIsFinished()
+        {
+            byte is_valid = 0;
+            byte test_item = 0;
+            byte is_success = 0;
+
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+          
+            while (is_valid == 0)
+            {
+                if(stopwatch.ElapsedMilliseconds > 10000)
+                {
+                    return false;
+                }
+                WLIGBTHelper.wl_igbt_get_test_complete_state(Handle, ref is_valid, ref test_item, ref is_success);
+            }
+            return true;
+        }
+        
+        
+        public bool ClearResult(TestItemsEnum itemType)
+        {
+            return WLIGBTHelper.ccb_result_clear(Handle, itemType) == 0 ? true : false;
+        }
+
+        public bool ClearAllResult()
+        {
+            return WLIGBTHelper.cbb_result_clear_all(Handle) == 0 ? true : false;
         }
 
         #region 流程策略

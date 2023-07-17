@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:IGBT_SET.View"
              mc:Ignorable="d" 
-               d:DesignHeight="220" d:DesignWidth="1500">
+               d:DesignHeight="220" d:DesignWidth="1500"
+                 >
 
     <Grid Margin="0,-1,0,1">
         <Grid.ColumnDefinitions>
@@ -30,7 +31,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <ComboBox  x:Name="cbx_select" Grid.Column="1" HorizontalAlignment="Left" Margin="108,61,0,0" VerticalAlignment="Top" SelectedIndex="0"  Height="21" Width="78" RenderTransformOrigin="3.733,1.845" SelectionChanged="cbx_select_SelectionChanged" >
+        <ComboBox  x:Name="cbx_select" Grid.Column="1" HorizontalAlignment="Left" Margin="108,61,0,0" VerticalAlignment="Top" SelectedIndex="0"  Height="21" Width="78" RenderTransformOrigin="3.733,1.845" >
             <ComboBoxItem>None</ComboBoxItem>
             <ComboBoxItem>U上</ComboBoxItem>
             <ComboBoxItem>U下</ComboBoxItem>
@@ -46,8 +47,7 @@
         <TextBox x:Name="hv_ce_pulse_voltage" HorizontalAlignment="Left" Height="23" Margin="340,59,0,0" TextWrapping="Wrap" Text="500" VerticalAlignment="Top" Width="104" Grid.Column="1" />
 
 
-        <Button  x:Name="btn_ICESParam" Style="{StaticResource ButtonStyle}"  Content="测试准备" Grid.Column="1" HorizontalAlignment="Left" Margin="25,161,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="btn_VgethParam_Click" RenderTransformOrigin="0.556,0.956"/>
-        <Button  x:Name="btn_ICESTest" Style="{StaticResource ButtonStyle}"  Content="开始测试" Grid.Column="1" HorizontalAlignment="Left" Margin="166,161,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="btn_VgethTest_Click" RenderTransformOrigin="0.556,0.956"/>
-
+        <Button  x:Name="btn_ICESParam" Style="{StaticResource ButtonStyle}"  Content="测试准备" Grid.Column="1" HorizontalAlignment="Left" Margin="25,161,0,0" VerticalAlignment="Top" Width="87" Height="33" RenderTransformOrigin="0.556,0.956" Click="btn_ICESParam_Click"/>
+        <Button  x:Name="btn_ICESTest" Style="{StaticResource ButtonStyle}"  Content="开始测试" Grid.Column="1" HorizontalAlignment="Left" Margin="166,161,0,0" VerticalAlignment="Top" Width="87" Height="33"  RenderTransformOrigin="0.556,0.956" Click="btn_ICESTest_Click"/>
     </Grid>
 </UserControl>

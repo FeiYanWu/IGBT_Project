@@ -22,18 +22,21 @@ namespace IGBT_SET.View
             {
                 if (WindowModel == null)
                     WindowModel = MainWindowModel.GetInstance();
-
-                if (MainWindowModel.devManager.siemensS1200Helper.ReadBoolData("DB5.1.0"))
-                {
-                    btn_tempterature_Open.IsEnabled = false;
-                    btn_tempterature_Close.IsEnabled = true;
-                }
-                else
-                {
-                    btn_tempterature_Open.IsEnabled = true;
-                    btn_tempterature_Close.IsEnabled = false;
-                }
             }
+
+            if (MainWindowModel.devManager.siemensS1200Helper.ReadBoolData("DB5.1.0"))
+            {
+                btn_tempterature_Open.IsEnabled = false;
+                btn_tempterature_Close.IsEnabled = true;
+            }
+            else
+            {
+                btn_tempterature_Open.IsEnabled = true;
+                btn_tempterature_Close.IsEnabled = false;
+            }
+
+            float productLocation = MainWindowModel.devManager.siemensS1200Helper.ReadFloat("DB5.18.0");
+            tb_product_location.Text = productLocation.ToString("2");
         }
 
 
@@ -293,6 +296,17 @@ namespace IGBT_SET.View
                 }
             btn_tempterature_Open.IsEnabled = true;
         }
-    #endregion
+        #endregion
+
+        private void btn_productlocation_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tb_product_location.Text))
+            {
+                MessageBox.Show("电缸位置不能为空");
+                return;
+            }
+            float data = float.Parse(tb_product_location.Text);
+            MainWindowModel.devManager.siemensS1200Helper.WriteFloat("DB5.18.0", data);
+        }
     }
 }

@@ -37,8 +37,10 @@ namespace IGBT_SET.View
                     systemConfigViewModel = SystemConfigViewModel.GetInstance();
 
 
-                MainWindowModel.devManager.ClearAllFault();
+
             }
+
+            MainWindowModel.devManager.ClearAllFault();
         }
 
 

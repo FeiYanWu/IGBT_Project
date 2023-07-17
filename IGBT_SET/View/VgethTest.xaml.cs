@@ -1,21 +1,10 @@
 ﻿using IGBT_SET.ViewModel;
 using IGBT_V2Helper;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using static IGBT_V2Helper.IGBStructs;
 
 namespace IGBT_SET.View
@@ -34,9 +23,11 @@ namespace IGBT_SET.View
             {
                 if (windowModel == null)
                     windowModel = MainWindowModel.GetInstance();
-                MainWindowModel.devManager.ClearAllFault();
-                InitData();
+               
             }
+
+            MainWindowModel.devManager.ClearAllFault();
+            InitData();
         }
 
         private void InitData()
@@ -68,15 +59,11 @@ namespace IGBT_SET.View
             igbtPara.sequence_fix_para.sequence_public_fix_para.sequence = new byte[24];
             igbtPara.sequence_fix_para.sequence_public_fix_para.sequence[0] = (byte)TestItemsEnum.ITEM_VGETH;
 
-            if (MainWindowModel.devManager.wl7016Helper.SetIGBTPara(ref igbtPara) &&
 
-                 MainWindowModel.devManager.wl7505Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wl7001Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wl7010Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wl7001Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wl7011Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wL751301Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wL751302Helper.SetIGBTPara(ref igbtPara))
+            // 清除结果
+            MainWindowModel.devManager.wl7005Helper.ClearResult(TestItemsEnum.ITEM_VGETH);
+
+            if (MainWindowModel.devManager.LoadParam(ref igbtPara))
             {
                 MessageBox.Show("测试准备完成");
             }
@@ -84,6 +71,7 @@ namespace IGBT_SET.View
             {
                 MessageBox.Show("测试准备失败，下发参数错误");
             }
+
         }
 
         private void btn_VgethTest_Click(object sender, RoutedEventArgs e)
@@ -95,12 +83,22 @@ namespace IGBT_SET.View
                 return;
             }
 
-
-
             if (MainWindowModel.devManager.wl7016Helper.ExecuteSequence())
             {
-                Thread.Sleep(1000);
-                uint length = MainWindowModel.devManager.wl7005Helper.GetResultVGETHLength();
+                uint length = 0;
+                int n = 3;
+
+                while (length == 0)
+                {
+                    Thread.Sleep(1000);
+                    if (n == 0)
+                    {
+                        MessageBox.Show("读取VGETH结果超时");
+                        return;
+                    }
+                    length = MainWindowModel.devManager.wl7005Helper.GetResultVGETHLength();
+                    n--;
+                }
                 if (length > 0)
                 {
                     result_vgeth_t[] resultVgethArray;

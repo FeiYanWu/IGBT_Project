@@ -24,7 +24,7 @@ namespace IGBT_V2Helper
             int errCode = WLIGBTHelper.cbb_para_set_para(Handle, ref igbt_fix_para);
             if (errCode != 0)
             {
-                MessageBox.Show($"设置系统管理板参数错误,错误代码：{errCode}");
+                MessageBox.Show($"设置高压脉冲板参数错误,错误代码：{errCode}");
                 return false;
             }
             return true;

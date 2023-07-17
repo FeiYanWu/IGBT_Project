@@ -46,8 +46,8 @@
         <TextBox x:Name="tb_ccsoutcurrent" HorizontalAlignment="Left" Height="23" Margin="358,61,0,0" TextWrapping="Wrap" Text="500" VerticalAlignment="Top" Width="104" Grid.Column="1" />
 
 
-        <Button  x:Name="btn_VFtParam" Style="{StaticResource ButtonStyle}"  Content="测试准备" Grid.Column="1" HorizontalAlignment="Left" Margin="25,161,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="btn_VcesatParam_Click" RenderTransformOrigin="0.556,0.956"/>
-        <Button  x:Name="btn_VcesatTest" Style="{StaticResource ButtonStyle}"  Content="开始测试" Grid.Column="1" HorizontalAlignment="Left" Margin="166,161,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="btn_VcesatTest_Click" RenderTransformOrigin="0.556,0.956"/>
+        <Button  x:Name="btn_VcesatParam" Style="{StaticResource ButtonStyle}"  Content="测试准备" Grid.Column="1" HorizontalAlignment="Left" Margin="25,161,0,0" VerticalAlignment="Top" Width="87" Height="33" RenderTransformOrigin="0.556,0.956" Click="btn_VcesatParam_Click" />
+        <Button  x:Name="btn_VcesatTest" Style="{StaticResource ButtonStyle}"  Content="开始测试" Grid.Column="1" HorizontalAlignment="Left" Margin="166,161,0,0" VerticalAlignment="Top" Width="87" Height="33"  RenderTransformOrigin="0.556,0.956" Click="btn_VcesatTest_Click" />
 
     </Grid>
 </UserControl>

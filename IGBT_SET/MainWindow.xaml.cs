@@ -19,12 +19,19 @@ namespace IGBT_SET
         private MainWindowModel mainWindowModel;
 
         public string ProductModel;
-        public MainWindow(string productModel)
+        //public MainWindow(string productModel)
+        //{
+        //    InitializeComponent();
+        //    mainWindowModel = MainWindowModel.GetInstance();
+        //    this.DataContext = mainWindowModel;
+        //    ProductModel = productModel;
+        //}
+
+        public MainWindow()
         {
             InitializeComponent();
             mainWindowModel = MainWindowModel.GetInstance();
             this.DataContext = mainWindowModel;
-            ProductModel = productModel;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -37,9 +44,9 @@ namespace IGBT_SET
             this.Top = 0.0;
             this.Width = SystemParameters.PrimaryScreenWidth;
             this.Height = SystemParameters.PrimaryScreenHeight;
-            DeskTopInit();
+           // DeskTopInit();
             SetHandModel();
-            SetSystemInfo();
+            //SetSystemInfo();
         }
 
         private void SetSystemInfo()

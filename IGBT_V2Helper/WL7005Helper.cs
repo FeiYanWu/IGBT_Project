@@ -30,6 +30,10 @@ namespace IGBT_V2Helper
             }
             return length;
         }
+        public bool ClearResult(TestItemsEnum itemType)
+        {
+            return WLIGBTHelper.ccb_result_clear(Handle, itemType) == 0 ? true : false;
+        }
 
         public uint GetResultVGETHLength()
         {
@@ -42,7 +46,16 @@ namespace IGBT_V2Helper
             }
             return length;
         }
-
+        public bool SetIGBTPara(ref igbt_fix_para_t igbt_fix_para)
+        {
+            int errCode = WLIGBTHelper.cbb_para_set_para(Handle, ref igbt_fix_para);
+            if (errCode != 0)
+            {
+                MessageBox.Show($"设置SMU源板参数错误,错误代码：{errCode}");
+                return false;
+            }
+            return true;
+        }
         public bool GetResultIGESArray(out result_iges_t[] resultArray, uint length, ref uint realLength)
         {
             resultArray = new result_iges_t[length];
@@ -123,6 +136,7 @@ namespace IGBT_V2Helper
             }
             return true;
         }
+    
 
         private void ConnectWL7005()
         {

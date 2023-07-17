@@ -160,14 +160,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BusyIndicator.cs" />
     <Compile Include="Common\Notify.cs" />
     <Compile Include="Common\DevInfo.cs" />
     <Compile Include="Common\Product.cs" />
     <Compile Include="Common\XMLHelper.cs" />
     <Compile Include="Models\SystemParam.cs" />
-    <Compile Include="StartupWindow.xaml.cs">
-      <DependentUpon>StartupWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\MainWindowModel.cs" />
     <Compile Include="ViewModel\SystemConfigViewModel.cs" />
     <Compile Include="View\HighPower.xaml.cs">
@@ -181,6 +179,9 @@
     </Compile>
     <Compile Include="View\KelvinTest.xaml.cs">
       <DependentUpon>KelvinTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LodingView.xaml.cs">
+      <DependentUpon>LodingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LowPower.xaml.cs">
       <DependentUpon>LowPower.xaml</DependentUpon>
@@ -209,10 +210,6 @@
     <Compile Include="View\VgethTest.xaml.cs">
       <DependentUpon>VgethTest.xaml</DependentUpon>
     </Compile>
-    <Page Include="StartupWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\HighPower.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -238,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\KelvinTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LodingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -339,5 +340,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

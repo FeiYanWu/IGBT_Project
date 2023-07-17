@@ -34,11 +34,11 @@ namespace IGBT_SET.View
             {
                 if (windowModel == null)
                     windowModel = MainWindowModel.GetInstance();
-
-                MainWindowModel.devManager.ClearAllFault();
-                InitData();
+             
             }
-           
+            MainWindowModel.devManager.ClearAllFault();
+            InitData();
+
         }
 
         private void InitData()
@@ -55,37 +55,44 @@ namespace IGBT_SET.View
                 return;
             }
 
-            igbt_fix_para_t igbtPara = new igbt_fix_para_t();
-            MainWindowModel.devManager.wl7016Helper.GetIGBTPara(ref igbtPara);
-
-            for (int i = 0; i < igbtPara.iges_fix_para.iges_special_fix_para.Length; i++)
+            btn_VFParam.IsEnabled = false;
+            try
             {
-                igbtPara.vf_fix_para.vf_special_fix_para[i].ccs_output_current_value = Convert.ToDouble(tb_ccsoutcurrent.Text);
+                MainWindowModel.devManager.wL751301Helper.RogwskiCoilStaticTest();
+                igbt_fix_para_t igbtPara = new igbt_fix_para_t();
+                MainWindowModel.devManager.wl7016Helper.GetIGBTPara(ref igbtPara);
 
+                for (int i = 0; i < igbtPara.iges_fix_para.iges_special_fix_para.Length; i++)
+                {
+                    igbtPara.vf_fix_para.vf_special_fix_para[i].ccs_output_current_value = Convert.ToDouble(tb_ccsoutcurrent.Text);
+
+                }
+                igbtPara.vf_fix_para.vf_public_fix_para.strategy = new byte[24];
+                igbtPara.vf_fix_para.vf_public_fix_para.strategy[0] = Convert.ToByte(cbx_select.SelectedIndex);
+
+                igbtPara.sequence_fix_para.sequence_public_fix_para.sequence = new byte[24];
+                igbtPara.sequence_fix_para.sequence_public_fix_para.sequence[0] = (byte)TestItemsEnum.ITEM_VF;
+
+
+
+                // 清除结果
+                MainWindowModel.devManager.wl7016Helper.ClearAllResult();
+                MainWindowModel.devManager.wl7505Helper.ClearResult(TestItemsEnum.ITEM_VF);
+
+                if (MainWindowModel.devManager.LoadParam(ref igbtPara))
+                {
+                    MessageBox.Show("测试准备完成");
+                }
+                else
+                {
+                    MessageBox.Show("测试准备失败，下发参数错误");
+                }
             }
-            igbtPara.vf_fix_para.vf_public_fix_para.strategy = new byte[24];
-            igbtPara.vf_fix_para.vf_public_fix_para.strategy[0] = Convert.ToByte(cbx_select.SelectedIndex);
-
-            igbtPara.sequence_fix_para.sequence_public_fix_para.sequence = new byte[24];
-            igbtPara.sequence_fix_para.sequence_public_fix_para.sequence[0] = (byte)TestItemsEnum.ITEM_VF;
-
-
-            if (MainWindowModel.devManager.wl7016Helper.SetIGBTPara(ref igbtPara) &&
-
-                 MainWindowModel.devManager.wl7505Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wl7001Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wl7010Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wl7001Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wl7011Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wL751301Helper.SetIGBTPara(ref igbtPara) &&
-                 MainWindowModel.devManager.wL751302Helper.SetIGBTPara(ref igbtPara))
+            finally
             {
-                MessageBox.Show("测试准备完成");
+                btn_VFParam.IsEnabled = true;
             }
-            else
-            {
-                MessageBox.Show("测试准备失败，下发参数错误");
-            }
+
         }
 
         private void btn_VFTest_Click(object sender, RoutedEventArgs e)
@@ -99,29 +106,61 @@ namespace IGBT_SET.View
 
             if (MainWindowModel.devManager.wl7016Helper.ExecuteSequence())
             {
-                Thread.Sleep(1000);
-                uint length = MainWindowModel.devManager.wl7016Helper.GetResultVFLength();
-                if (length > 0)
+                if (MainWindowModel.devManager.wl7016Helper.TestIsFinished())
                 {
-                    result_vf_t[] resultVfArray;
+                    uint length = 0;
+                    int n = 3;
 
-                    if (MainWindowModel.devManager.wl7016Helper.GetResultVFtArray(out resultVfArray, length, ref length))
+                    while (length == 0)
                     {
-                        tb_TestResult.Text = "VF电压：" + resultVfArray[0].ce_voltage.ToString() + "\r\n";
+                        Thread.Sleep(1000);
+                        if (n == 0)
+                        {
+                            MessageBox.Show("读取VF结果超时");
+                            return;
+                        }
+                        length = MainWindowModel.devManager.wl7016Helper.GetResultVFLength();
+                        n--;
+                    }
+
+                    if (length > 0)
+                    {
+                        result_vf_t[] resultVfArray;
+
+                        if (MainWindowModel.devManager.wl7016Helper.GetResultVFtArray(out resultVfArray, length, ref length))
+                        {
+                            tb_TestResult.Text = "VF电压：" + resultVfArray[0].ce_voltage.ToString() + "\r\n";
+                        }
+                    }
+
+
+                    uint curLength = 0;
+                    n = 3;
+                    while (curLength == 0)
+                    {
+                        Thread.Sleep(1000);
+                        if (n == 0)
+                        {
+                            MessageBox.Show("读取VF结果超时");
+                            return;
+                        }
+                        curLength = MainWindowModel.devManager.wl7505Helper.GetResultVFLength();
+                        n--;
+                    }
+                    if (curLength > 0)
+                    {
+                        result_vf_t[] resultVfArray;
+
+                        if (MainWindowModel.devManager.wl7505Helper.GetResultVFtArray(out resultVfArray, curLength, ref curLength))
+                        {
+                            tb_TestResult.Text = tb_TestResult.Text + "VF电流：" + resultVfArray[0].ce_current.ToString();
+                        }
                     }
                 }
-
-                uint curLength = MainWindowModel.devManager.wl7505Helper.GetResultVFLength();
-                if (curLength > 0)
+                else
                 {
-                    result_vf_t[] resultVfArray;
-
-                    if (MainWindowModel.devManager.wl7505Helper.GetResultVFtArray(out resultVfArray, curLength, ref curLength))
-                    {
-                        tb_TestResult.Text = "VF电流：" + resultVfArray[0].ce_current.ToString();
-                    }
+                    MessageBox.Show("获取结果超时");
                 }
-
             }
         }
 

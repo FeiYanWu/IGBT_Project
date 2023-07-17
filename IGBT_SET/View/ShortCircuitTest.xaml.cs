@@ -30,11 +30,12 @@ namespace IGBT_SET.View
             {
                 if (windowModel == null)
                     windowModel = MainWindowModel.GetInstance();
-                cbx_select.SelectionChanged += cbx_select_SelectionChanged;
-               
-                MainWindowModel.devManager.ClearAllFault();
-                InitData();
+              
             }
+            cbx_select.SelectionChanged += cbx_select_SelectionChanged;
+
+            MainWindowModel.devManager.ClearAllFault();
+            InitData();
         }
 
        
@@ -357,9 +358,7 @@ namespace IGBT_SET.View
                     igbtPara.lshort_fix_para.lshort_public_fix_para.gd_ge_on_resistance = Convert.ToUInt32(tb_SetResistance.Text.ToString());
                     igbtPara.lshort_fix_para.lshort_public_fix_para.gd_ge_off_resistance = Convert.ToUInt32(tb_OffResistance.Text.ToString());
 
-                    MainWindowModel.devManager.wl7016Helper.SetIGBTPara(ref igbtPara);
-                    MainWindowModel.devManager.wl7010Helper.SetIGBTPara(ref igbtPara);
-                    MainWindowModel.devManager.wL751301Helper.SetIGBTPara(ref igbtPara);
+                    MainWindowModel.devManager.LoadParam(ref igbtPara);
 
 
                     //// 保护电流

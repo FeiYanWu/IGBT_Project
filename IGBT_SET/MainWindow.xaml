@@ -89,7 +89,6 @@
 
                 <TabItem Header="Vcesat" IsEnabled="True">
                     <Grid Background="#FFE5E5E5" >
-
                         <View:VCESatTest Margin="3,3,0,0" Grid.ColumnSpan="2"/>
                     </Grid>
                 </TabItem>

@@ -23,9 +23,9 @@
         <Button  x:Name="btn_reversal" Style="{StaticResource ButtonStyle}" FontSize="15" Content="反转180°" HorizontalAlignment="Left" Margin="18,35,0,0" Width="75" Grid.Row="1" Height="32" VerticalAlignment="Top" Click="btn_reversal_Click"/>
 
         <Button  x:Name="btn_foreward" Style="{StaticResource ButtonStyle}" FontSize="15" Content="正转到0" Margin="166,35,0,0" Grid.Row="1" Height="32"  Width="75" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btn_foreward_Click"/>
-        
-        <Button x:Name="btn_Product" FontSize="15" Style="{StaticResource ButtonStyle}"  Grid.Row="2"  Content="产品上升/下降到位" HorizontalAlignment="Left" Margin="18,35,0,0" VerticalAlignment="Top" Width="147" Height="48" Click="btn_Product_Click"/>
-        <Button x:Name="btn_Needle" FontSize="15" Style="{StaticResource ButtonStyle}"  Grid.Row="2"  Content="针床上升/下降到位" HorizontalAlignment="Left" Margin="18,95,0,0" VerticalAlignment="Top" Width="147" Height="45" RenderTransformOrigin="0.5,0.5" Click="btn_Needle_Click"/>
+
+        <Button x:Name="btn_Product" FontSize="15" Style="{StaticResource ButtonStyle}"  Grid.Row="2"  Content="电缸升降" HorizontalAlignment="Left" Margin="17,35,0,0" VerticalAlignment="Top" Width="77" Height="37" Click="btn_Product_Click"/>
+        <Button x:Name="btn_Needle" FontSize="15" Style="{StaticResource ButtonStyle}"  Grid.Row="2"  Content="针床升降" HorizontalAlignment="Left" Margin="18,77,0,0" VerticalAlignment="Top" Width="77" Height="34" RenderTransformOrigin="0.5,0.5" Click="btn_Needle_Click"/>
 
         <Label Content="工装1温度(°C)" HorizontalAlignment="Left" Margin="17,35,0,0" VerticalAlignment="Top" Height="40" Grid.Row="3" Width="97" IsEnabled="False"/>
         <Label Content="工装2温度(°C)" HorizontalAlignment="Left" Margin="167,35,0,0" VerticalAlignment="Top" Height="30" Grid.Row="3" IsEnabled="False"/>
@@ -36,7 +36,7 @@
         <Button  Style="{StaticResource ButtonStyle}"   x:Name="btn_tempterature" Content="温度设置" HorizontalAlignment="Left" Margin="167,121,0,0" VerticalAlignment="Top" Width="115" Height="41" Click="btn_tempterature_Click" Grid.Row="3"/>
 
         <Label FontSize="20" Content="PLC控制 ：" Margin="0,0,186,0" FontWeight="Bold"/>
-        <Ellipse x:Name="Status_Poduct"  HorizontalAlignment="Left"  Height="24"  Width="32" Margin="188,48,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" RenderTransformOrigin="-3.312,0.625" >
+        <Ellipse x:Name="Status_Poduct"  HorizontalAlignment="Left"  Height="24"  Width="32" Margin="111,40,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" RenderTransformOrigin="-3.312,0.625" >
             <Ellipse.Style>
                 <Style TargetType="Ellipse">
                     <Style.Triggers>
@@ -50,7 +50,7 @@
                 </Style>
             </Ellipse.Style>
         </Ellipse>
-        <Ellipse x:Name="Status_Needle"  HorizontalAlignment="Left"  Height="24"  Width="32" Margin="188,105,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top">
+        <Ellipse x:Name="Status_Needle"  HorizontalAlignment="Left"  Height="24"  Width="32" Margin="113,87,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" RenderTransformOrigin="0.796,0.069">
             <Ellipse.Style>
                 <Style TargetType="Ellipse">
                     <Style.Triggers>
@@ -65,7 +65,7 @@
             </Ellipse.Style>
         </Ellipse>
         <Label Content="产品托盘控制：" HorizontalAlignment="Left" Margin="8,5,0,0" Grid.Row="1" VerticalAlignment="Top" FontStyle="Italic" FontSize="14"/>
-        <Label Content="产品/针床控制：" HorizontalAlignment="Left" Margin="8,5,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="14" FontStyle="Italic"/>
+        <Label Content="电缸/针床控制：" HorizontalAlignment="Left" Margin="3,7,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="14" FontStyle="Italic"/>
         <Label Content="工装温度设置：" HorizontalAlignment="Left" Margin="8,5,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="14" FontStyle="Italic"/>
         <Button  x:Name="btn_reset" Style="{StaticResource ButtonStyle}" FontSize="15" Content="回原点" HorizontalAlignment="Left" Margin="18,86,0,0" Width="75" Grid.Row="1" Height="32" VerticalAlignment="Top" Click="btn_reset_Click"/>
         <Ellipse x:Name="Ststus_reset"   HorizontalAlignment="Left" Margin="101,88,0,0" Grid.Row="1" Stroke="Black" Height="24"  Width="32" RenderTransformOrigin="0.062,0.375" VerticalAlignment="Top">
@@ -82,21 +82,21 @@
                 </Style>
             </Ellipse.Style>
         </Ellipse>
-        <Ellipse x:Name="Status_Poduct_Copy"  HorizontalAlignment="Left"  Height="24"  Width="32" Margin="249,48,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" RenderTransformOrigin="-3.312,0.625">
+        <Ellipse x:Name="Status_Poduct_Copy"  HorizontalAlignment="Left"  Height="24"  Width="32" Margin="166,40,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" RenderTransformOrigin="-3.312,0.625">
             <Ellipse.Style>
                 <Style TargetType="Ellipse">
                     <Style.Triggers>
-                            <DataTrigger Binding="{ Binding ProductDownedSignal}"  Value="false">
+                        <DataTrigger Binding="{ Binding ProductDownedSignal}"  Value="false">
                             <Setter Property="Shape.Fill" Value="LightSteelBlue"/>
                         </DataTrigger>
-                            <DataTrigger Binding="{ Binding ProductDownedSignal}"  Value="true">
+                        <DataTrigger Binding="{ Binding ProductDownedSignal}"  Value="true">
                             <Setter Property="Shape.Fill" Value="Green"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Ellipse.Style>
         </Ellipse>
-        <Ellipse x:Name="Status_Needle_Copy"  HorizontalAlignment="Left"  Height="24"  Width="32" Margin="249,105,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" RenderTransformOrigin="2.156,0.708">
+        <Ellipse x:Name="Status_Needle_Copy"  HorizontalAlignment="Left"  Height="24"  Width="32" Margin="167,87,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" RenderTransformOrigin="2.156,0.708">
             <Ellipse.Style>
                 <Style TargetType="Ellipse">
                     <Style.Triggers>
@@ -110,9 +110,14 @@
                 </Style>
             </Ellipse.Style>
         </Ellipse>
-        <Label Content="上升" HorizontalAlignment="Left" Margin="185,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <Label Content="下降" HorizontalAlignment="Left" Margin="248,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <Label Content="上升" HorizontalAlignment="Left" Margin="113,9,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="1.647,0.621"/>
+        <Label Content="下降" HorizontalAlignment="Left" Margin="167,10,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.122,0.447"/>
         <Button  IsEnabled="False" Style="{StaticResource ButtonStyle}"  x:Name="btn_tempterature_Open" Content="温度开" HorizontalAlignment="Left" Margin="17,178,0,0" VerticalAlignment="Top" Width="115" Height="41" Grid.Row="3" Click="btn_tempterature_Open_Click"/>
         <Button  IsEnabled="False" Style="{StaticResource ButtonStyle}"  x:Name="btn_tempterature_Close" Content="温度关" HorizontalAlignment="Left" Margin="167,178,0,0" VerticalAlignment="Top" Width="115" Height="41" Grid.Row="3" Click="btn_tempterature_Close_Click"/>
+        <Label Content="电缸上升位置" HorizontalAlignment="Left" Margin="17,125,0,0" VerticalAlignment="Top" Height="40" Grid.Row="2" Width="97" Grid.RowSpan="2" />
+        
+        
+        <TextBox x:Name="tb_product_location" FontSize="20"  HorizontalAlignment="Left" Height="30" Margin="110,120,0,0" TextWrapping="Wrap" Text="32" VerticalAlignment="Top" Width="88" Grid.Row="2"/>
+        <Button  Style="{StaticResource ButtonStyle}"   x:Name="btn_productlocation" Content="位置设置" HorizontalAlignment="Left" Margin="209,121,0,0" VerticalAlignment="Top" Width="73" Height="29" Click="btn_productlocation_Click" Grid.Row="2" RenderTransformOrigin="0.325,0.744"/>
     </Grid>
 </UserControl>

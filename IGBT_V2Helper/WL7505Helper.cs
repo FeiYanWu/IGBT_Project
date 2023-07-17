@@ -41,6 +41,12 @@ namespace IGBT_V2Helper
             return true;
         }
 
+
+        public bool ClearResult(TestItemsEnum itemType)
+        {
+            return WLIGBTHelper.ccb_result_clear(Handle, itemType) == 0 ? true : false;
+        }
+
         private void ConnectWL7505()
         {
             int errCode = WLIGBTHelper.WLIGBT_C01_Open(IP, ref Handle);
