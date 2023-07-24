@@ -105,7 +105,7 @@ namespace IGBT_SET.View
 
                     if (MainWindowModel.devManager.wl7005Helper.GetResultVgethArray(out resultVgethArray, length, ref length))
                     {
-                        tb_TestResult.Text = "Vgeth电流：" + resultVgethArray[0].vgeth_current.ToString() + "\r\n" + "Vgeth电压：" + resultVgethArray[0].vgeth.ToString();
+                        tb_TestResult.Text = "Vgeth电流：" + resultVgethArray[0].vgeth_current.ToString() + "A" + "\r\n" + "Vgeth电压：" + resultVgethArray[0].vgeth.ToString() + "V";
                     }
                 }
             }

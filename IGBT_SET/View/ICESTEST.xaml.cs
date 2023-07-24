@@ -107,8 +107,6 @@ namespace IGBT_SET.View
 
             if (MainWindowModel.devManager.wl7016Helper.ExecuteSequence())
             {
-
-
                 if (MainWindowModel.devManager.wl7016Helper.TestIsFinished())
                 {
                     uint length = 0;
@@ -131,7 +129,7 @@ namespace IGBT_SET.View
 
                         if (MainWindowModel.devManager.wl7016Helper.GetResultICESArray(out resultICESArray, length, ref length))
                         {
-                            tb_TestResult.Text = "ICES电流：" + resultICESArray[0].ce_current.ToString() + "\r\n" + "ICES电压：" + resultICESArray[0].ce_voltage.ToString();
+                            tb_TestResult.Text = "ICES电流：" + (resultICESArray[0].ce_current*Math.Pow(10,6)).ToString("#0.000") +"uA" + "\r\n" + "ICES电压：" + resultICESArray[0].ce_voltage.ToString()+"V";
                         }
                     }
                 }

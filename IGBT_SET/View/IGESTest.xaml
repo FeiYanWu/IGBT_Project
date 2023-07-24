@@ -63,5 +63,8 @@
         <TextBox x:Name="tb_NegPulseWidth" HorizontalAlignment="Left" Height="23" Margin="572,97,0,0" TextWrapping="Wrap" Text="50000" VerticalAlignment="Top" Width="104" Grid.Column="1" />
         <Label Grid.Column="1" Content="us" HorizontalAlignment="Left" Margin="686,58,0,0" VerticalAlignment="Top" Height="34" Width="161" RenderTransformOrigin="0.5,0.5"/>
         <Label Grid.Column="1" Content="us" HorizontalAlignment="Left" Margin="686,93,0,0" VerticalAlignment="Top" Height="34" Width="161" RenderTransformOrigin="0.5,0.5"/>
+        <Label Grid.Column="1" Content="脉冲采样时间：" HorizontalAlignment="Left" Margin="477,125,0,0" VerticalAlignment="Top" Height="34" Width="161" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="tb_Pulse_Sampling_Time" HorizontalAlignment="Left" Height="23" Margin="572,131,0,0" TextWrapping="Wrap" Text="50000" VerticalAlignment="Top" Width="104" Grid.Column="1" />
+        <Label Grid.Column="1" Content="us" HorizontalAlignment="Left" Margin="686,127,0,0" VerticalAlignment="Top" Height="34" Width="161" RenderTransformOrigin="0.5,0.5"/>
     </Grid>
 </UserControl>

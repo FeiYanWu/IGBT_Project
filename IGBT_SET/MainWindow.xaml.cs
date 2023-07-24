@@ -44,7 +44,7 @@ namespace IGBT_SET
             this.Top = 0.0;
             this.Width = SystemParameters.PrimaryScreenWidth;
             this.Height = SystemParameters.PrimaryScreenHeight;
-           // DeskTopInit();
+            DeskTopInit();
             SetHandModel();
             //SetSystemInfo();
         }
@@ -57,7 +57,6 @@ namespace IGBT_SET
 
             if(product != null)
             {
-                
                 igbt_fix_para_t igbtPara = new igbt_fix_para_t();
                 MainWindowModel.devManager.wl7016Helper.GetIGBTPara(ref igbtPara);
                 igbtPara.system_fix_para.smu_channel_map = StringToByteArray(product.SmuChannelMap);

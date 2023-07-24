@@ -129,7 +129,7 @@ namespace IGBT_SET.View
 
                         if (MainWindowModel.devManager.wl7016Helper.GetResultVFtArray(out resultVfArray, length, ref length))
                         {
-                            tb_TestResult.Text = "VF电压：" + resultVfArray[0].ce_voltage.ToString() + "\r\n";
+                            tb_TestResult.Text = "VF电压：" + resultVfArray[0].ce_voltage.ToString() + "V" + "\r\n";
                         }
                     }
 
@@ -153,7 +153,7 @@ namespace IGBT_SET.View
 
                         if (MainWindowModel.devManager.wl7505Helper.GetResultVFtArray(out resultVfArray, curLength, ref curLength))
                         {
-                            tb_TestResult.Text = tb_TestResult.Text + "VF电流：" + resultVfArray[0].ce_current.ToString();
+                            tb_TestResult.Text = tb_TestResult.Text + "VF电流：" + resultVfArray[0].ce_current + "A".ToString();
                         }
                     }
                 }

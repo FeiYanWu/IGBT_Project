@@ -49,7 +49,7 @@ namespace IGBT_SET.View
             tb_NegPulseAmp.Text = igbtPara.iges_fix_para.iges_special_fix_para[0].smu_ge_negative_pulse_voltage.ToString();
             tb_PosPulseWidth.Text = igbtPara.iges_fix_para.iges_special_fix_para[0].smu_ge_positive_pulse_width.ToString();
             tb_NegPulseWidth.Text = igbtPara.iges_fix_para.iges_special_fix_para[0].smu_ge_negative_pulse_width.ToString();
-
+            tb_Pulse_Sampling_Time.Text = igbtPara.iges_fix_para.iges_public_fix_para.smu_ge_wave_sampling_time.ToString();
         }
 
         private void btn_IGESParam_Click(object sender, RoutedEventArgs e)
@@ -76,6 +76,8 @@ namespace IGBT_SET.View
                     igbtPara.iges_fix_para.iges_special_fix_para[i].smu_ge_negative_pulse_width = Convert.ToUInt32(tb_NegPulseWidth.Text);
 
                 }
+                igbtPara.iges_fix_para.iges_public_fix_para.smu_ge_wave_sampling_time = Convert.ToUInt32(tb_Pulse_Sampling_Time.Text);
+
                 igbtPara.iges_fix_para.iges_public_fix_para.strategy = new byte[24];
                 igbtPara.iges_fix_para.iges_public_fix_para.strategy[0] = Convert.ToByte(cbx_select.SelectedIndex);
 
@@ -138,7 +140,7 @@ namespace IGBT_SET.View
                         result_iges_t[] resultIGESArray;
                         if (MainWindowModel.devManager.wl7005Helper.GetResultIGESArray(out resultIGESArray, length, ref length))
                         {
-                            tb_TestResult.Text = "正向电流：" + resultIGESArray[0].positive_current.ToString() + "\r\n" + "负向电流：" + resultIGESArray[0].positive_current.ToString();
+                            tb_TestResult.Text = "正向电流：" + (resultIGESArray[0].positive_current * Math.Pow(10, 6)).ToString("#0.000")+"uA" + "\r\n" + "负向电流：" + (resultIGESArray[0].negative_current * Math.Pow(10, 6)).ToString("#0.000");
                         }
                     }
                 }
